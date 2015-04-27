@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file:$MODULE_DIR$/../../../../../../..//$MODULE_DIR$" />
+    <content url="file:$MODULE_DIR$/../../../../../../../192.168.2.5/Data/Lars/Data/Coding/PHP/RadiusAdmin" />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
