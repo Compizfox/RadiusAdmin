@@ -24,35 +24,17 @@
 	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-ini_set("display_errors", 1);
-error_reporting(E_ALL);
-
 require_once("libs/Smarty.class.php");
-require_once("include/db.php");
+require_once("include/frontcontroller_helper.php");
 
 $smarty = new Smarty;
-
-// Default page is home
-if(isset($_GET['page'])) {
-	$page = $_GET['page'];
-} else {
-	$page = "home";
-}
-
-// Get info about pages from db
-$stmt = $ra_db->prepare("SELECT * FROM menu WHERE page = :page");
-$stmt->bindParam(":page", $page, PDO::PARAM_STR);
-$stmt->execute();
-$result = $stmt->fetch();
-// Save this for later use
-$current_pageid = $result['id'];
 
 // Initialize menu
 require_once("include/menu.php");
 
 // Serve 404 page if page doesn't exist in db
-if (!empty($result)) {
-	$file = "pages/" . $result['page'] . ".php";
+if ($page_exists) {
+	$file = "pages/" . $page . ".php";
 
 	// Include file if exists
 	file_exists($file) and include($file);

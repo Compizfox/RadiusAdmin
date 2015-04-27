@@ -25,6 +25,7 @@
 */
 
 require_once(__DIR__ . "/../classes/Menu.php");
+require_once(__DIR__ . "/frontcontroller_helper.php");
 
 // Draw topmenu (all menuitems for topmenu have parent_id=0 in db)
 $topmenu = new Menu(0);
