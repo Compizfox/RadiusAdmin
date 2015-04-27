@@ -29,11 +29,13 @@ require_once(__DIR__ . "/Menuitem.php");
 class Menu {
 	private $parent_id;
 	private $levels;
+	private $baseid;
 	private $menuitems = [];
 
-	function __construct($parent_id, $levels = 1) {
+	function __construct($parent_id, $levels = 1, $baseid = null) {
 		$this->parent_id = $parent_id;
 		$this->levels = $levels;
+		$this->baseid = $baseid;
 		$this->populate();
 	}
 
@@ -53,7 +55,8 @@ class Menu {
 		$item = new Menuitem($id, $parent_id, $mpage, $options, $title, $glyphicon);
 
 		// If current page is this item, make it active
-		$item->active = ($page == $mpage);
+		// If this is the topmenu ($parent_id=0), also make menuitem active if current page is child
+		$item->active = ($page == $mpage) || ($this->baseid == $id);
 
 		// If levels > 1, menuitem should recursively lookup for submenuitems
 		if($this->levels > 1) {
