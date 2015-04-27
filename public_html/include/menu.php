@@ -31,6 +31,6 @@ $topmenu = new Menu(0);
 $smarty->assign("topmenu_items", $topmenu->getMenuData());
 
 // Draw leftmenu
-$leftmenu = new Menu($current_pageid);
+$leftmenu = new Menu($current_pageid, 2);
 $smarty->assign("leftmenu_items", $leftmenu->getMenuData());
 ?>
