@@ -13,8 +13,8 @@
 		</thead>
 		<tbody>
 			{foreach from=$users item=user}
-				<tr class="clickable-row" data-href="index.php?page=user&amp;user={$user->username}">
-					<td>{$user->username}</td>
+				<tr class="clickable-row" data-href="index.php?page=users_edit&amp;user={$user->name}">
+					<td>{$user->name}</td>
 					<td>{foreach from=$user->groups item=group}{$group}{/foreach}</td>
 				</tr>
 			{/foreach}

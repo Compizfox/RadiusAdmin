@@ -27,11 +27,11 @@
 require_once(__DIR__ . "/../classes/User.php");
 
 // Retrieve all users
-$sql = "SELECT username FROM radusergroup
+$sql = "SELECT username AS name FROM radusergroup
 	UNION
-		SELECT username FROM radcheck
+		SELECT username AS name FROM radcheck
 	UNION
-		SELECT username from radreply";
+		SELECT username AS name from radreply";
 
 // Instantiate User for every row
 $users = $fr_db->query($sql)->fetchAll(PDO::FETCH_CLASS, "User");

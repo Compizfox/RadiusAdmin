@@ -1,7 +1,7 @@
 <?php
 /*
-	Filename:	User.php
-	Date:		2015-04-27
+	Filename:	RadUnit.php
+	Date:		2015-04-29
     Author:		Lars Veldscholte
 				lars@veldscholte.eu
 				http://lars.veldscholte.eu
@@ -25,25 +25,35 @@
 */
 
 require_once(__DIR__ . "/../include/db.php");
-require_once(__DIR__ . "/RadUnit.php");
+require_once(__DIR__ . "/AttributeValuePair.php");
 
-class User extends RadUnit{
-	public $groups = [];
+abstract class RadUnit {
+	public $name;
+	public $checkattrs = [];
+	public $replyattrs = [];
 
-	protected function PostConstructor() {
+	function __construct($name = NULL) {
+		// This weird construction is needed because PDO::FETCH_CLASS instantiates the class with correct $name, but calls the constructor afterwards without arguments
+
+		if(isset($name)) {
+			$this->name = $name;
+		}
+
+		if(isset($this->name)) {
+			$this->PostConstructor();
+		}
+	}
+
+	abstract protected function PostConstructor();
+
+	protected function retrieveAttrs($tbl) {
 		global $fr_db;
 
-		// Retrieve all groups this user is in into groups[]
-		$stmt = $fr_db->prepare("SELECT groupname FROM radusergroup WHERE username = :username ORDER BY priority ASC");
+		// Retrieve and return all attributes as an array of AttributeValuePairs
+		$stmt = $fr_db->prepare("SELECT attribute, op AS operator, value FROM $tbl WHERE username = :username");
 		$stmt->bindParam(":username", $this->name, PDO::PARAM_STR);
 		$stmt->execute();
-		$this->groups = $stmt->fetch(PDO::FETCH_COLUMN);
-
-		// Retrieve check attributes
-		$this->checkattrs = $this->retrieveAttrs("radcheck");
-
-		// Retrieve reply attributes
-		$this->replyattrs = $this->retrieveAttrs("radreply");
+		return $stmt->fetchAll(PDO::FETCH_CLASS, "AttributeValuePair");
 	}
 }
 

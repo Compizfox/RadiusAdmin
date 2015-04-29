@@ -1,7 +1,7 @@
 <?php
 /*
-	Filename:	User.php
-	Date:		2015-04-27
+	Filename:	Attribute.php
+	Date:		2015-04-29
     Author:		Lars Veldscholte
 				lars@veldscholte.eu
 				http://lars.veldscholte.eu
@@ -24,26 +24,17 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/../include/db.php");
-require_once(__DIR__ . "/RadUnit.php");
+class AttributeValuePair {
+	public $attribute;
+	public $operator;
+	public $value;
 
-class User extends RadUnit{
-	public $groups = [];
-
-	protected function PostConstructor() {
-		global $fr_db;
-
-		// Retrieve all groups this user is in into groups[]
-		$stmt = $fr_db->prepare("SELECT groupname FROM radusergroup WHERE username = :username ORDER BY priority ASC");
-		$stmt->bindParam(":username", $this->name, PDO::PARAM_STR);
-		$stmt->execute();
-		$this->groups = $stmt->fetch(PDO::FETCH_COLUMN);
-
-		// Retrieve check attributes
-		$this->checkattrs = $this->retrieveAttrs("radcheck");
-
-		// Retrieve reply attributes
-		$this->replyattrs = $this->retrieveAttrs("radreply");
+	function __construct($attribute = NULL, $operator = NULL, $value = NULL) {
+		if(isset($attribute) && isset($operator) && isset($value)) {
+			$attribute or $this->attribute = $attribute;
+			$attribute or $this->operator = $operator;
+			$attribute or $this->value = $value;
+		}
 	}
 }
 

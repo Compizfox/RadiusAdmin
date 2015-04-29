@@ -1,7 +1,7 @@
 <?php
 /*
-	Filename:	User.php
-	Date:		2015-04-27
+	Filename:	Group.php
+	Date:		2015-04-29
     Author:		Lars Veldscholte
 				lars@veldscholte.eu
 				http://lars.veldscholte.eu
@@ -27,23 +27,23 @@
 require_once(__DIR__ . "/../include/db.php");
 require_once(__DIR__ . "/RadUnit.php");
 
-class User extends RadUnit{
-	public $groups = [];
+class Group extends RadUnit {
+	public $users = [];
 
 	protected function PostConstructor() {
 		global $fr_db;
 
-		// Retrieve all groups this user is in into groups[]
-		$stmt = $fr_db->prepare("SELECT groupname FROM radusergroup WHERE username = :username ORDER BY priority ASC");
+		// Retrieve all users that belong to this group
+		$stmt = $fr_db->prepare("SELECT username FROM radusergroup WHERE groupname = :groupname ORDER BY priority ASC");
 		$stmt->bindParam(":username", $this->name, PDO::PARAM_STR);
 		$stmt->execute();
-		$this->groups = $stmt->fetch(PDO::FETCH_COLUMN);
+		$this->users = $stmt->fetch(PDO::FETCH_COLUMN);
 
 		// Retrieve check attributes
-		$this->checkattrs = $this->retrieveAttrs("radcheck");
+		$this->checkattrs = $this->retrieveAttrs("radgroupcheck");
 
 		// Retrieve reply attributes
-		$this->replyattrs = $this->retrieveAttrs("radreply");
+		$this->replyattrs = $this->retrieveAttrs("radgroupreply");
 	}
 }
 
