@@ -63,7 +63,7 @@ The development target for RadiusAdmin is PHP 5.6, but it will probably work on 
 #### Databases
 RadiusAdmin needs access to 2 databases: FreeRADIUS' database and RadiusAdmin's own database. These two database don't necessarily have to reside on the same server, although the example config file assumes they are.
 
-The schema for FreeRADIUS' database can be found in *raddb/mods-config/sql/main/*/schema.sql*. RadiusAdmin's schema is *radiusadmin.sql* and should be in this directory.
+The schema for FreeRADIUS' database can be found in _raddb/mods-config/sql/main/*/schema.sql_. RadiusAdmin's schema is *radiusadmin.sql* and should be in this directory.
 
 RadiusAdmin is made with MySQL as DBMS in mind, but can probably work with other DBMSs as well by editing *public_html/include/db.php*.
 
