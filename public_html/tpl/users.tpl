@@ -23,11 +23,5 @@
 {/block}
 
 {block name=script}
-	<script>
-		jQuery(document).ready(function($) {
-			$(".clickable-row").click(function() {
-				window.document.location = $(this).data("href");
-			});
-		});
-	</script>
+	<script src="js/clickable_table_rows.js"></script>
 {/block}
