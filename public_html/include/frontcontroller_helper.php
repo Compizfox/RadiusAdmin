@@ -50,3 +50,5 @@ if(!empty($result)) {
 } else {
 	$page_exists = false;
 }
+
+?>
