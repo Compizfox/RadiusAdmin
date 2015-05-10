@@ -25,15 +25,16 @@
 */
 
 class AttributeValuePair {
+	public $id;
 	public $attribute;
 	public $operator;
 	public $value;
 
 	function __construct($attribute = NULL, $operator = NULL, $value = NULL) {
 		if(isset($attribute) && isset($operator) && isset($value)) {
-			$attribute or $this->attribute = $attribute;
-			$attribute or $this->operator = $operator;
-			$attribute or $this->value = $value;
+			$this->attribute = $attribute;
+			$this->operator = $operator;
+			$this->value = $value;
 		}
 	}
 }
