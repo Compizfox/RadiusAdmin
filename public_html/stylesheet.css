@@ -48,7 +48,7 @@ footer {
     margin-top: 5px;
 }
 
-.nav > .active > a {
+.nav-sidebar > .active > a, .navbar-nav > .active > a {
     background-color: #FF4D00  !important;
 }
 
