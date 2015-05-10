@@ -25,16 +25,12 @@
 */
 
 require_once(__DIR__ . "/../classes/User.php");
+require_once(__DIR__ . "/../include/db.php");
 
 // Retrieve all users
-$sql = "SELECT username AS name FROM radusergroup
-	UNION
-		SELECT username AS name FROM radcheck
-	UNION
-		SELECT username AS name from radreply";
-
-// Instantiate User for every row
-$users = $fr_db->query($sql)->fetchAll(PDO::FETCH_CLASS, "User");
+$usermapper = new UserMapper($fr_db);
+$users = $usermapper->getAll();
 
 $smarty->assign("users", $users);
+
 ?>
