@@ -1,6 +1,6 @@
 <?php
 /*
-	Filename:	User.php
+	Filename:	Group.php
 	Date:		2015-04-27
     Author:		Lars Veldscholte
 				lars@veldscholte.eu
@@ -26,58 +26,58 @@
 
 require_once(__DIR__ . "/RadEntity.php");
 
-class User extends RadEntity {
-	public $groups = [];
+class Group extends RadEntity {
+	public $users = [];
 }
 
-Class UserMapper extends RadEntityMapper {
-	protected $nameColumnName = "username";
+Class GroupMapper extends RadEntityMapper {
+	protected $nameColumnName = "groupname";
 
 	function getNameList() {
 		$ncn = $this->nameColumnName;
 
 		$sql = "SELECT $ncn FROM radusergroup
-		  UNION SELECT $ncn FROM radcheck
-		  UNION SELECT $ncn FROM radreply";
+		  UNION SELECT $ncn FROM radgroupcheck
+		  UNION SELECT $ncn FROM radgroupreply";
 
 		return $this->db->query($sql)->fetchAll(PDO::FETCH_COLUMN);
 	}
 
 	function getByName($name) {
-		// Instantiate User
-		$user = new User($name);
+		// Instantiate Group
+		$group = new Group($name);
 
-		// Retrieve all groups this user is in, into $groups[]
-		$stmt = $this->db->prepare("SELECT groupname FROM radusergroup WHERE username = :username ORDER BY priority ASC");
-		$stmt->bindParam(":username", $name, PDO::PARAM_STR);
+		// Retrieve all users in this group, into $users[]
+		$stmt = $this->db->prepare("SELECT username FROM radusergroup WHERE groupname = :groupname ORDER BY priority ASC");
+		$stmt->bindParam(":groupname", $name, PDO::PARAM_STR);
 		$stmt->execute();
-		$user->groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
+		$group->users = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
 		// Retrieve check attributes into $checkattrs;
-		$user->checkattrs = $this->retrieveAttrs("radcheck", $name);
+		$group->checkattrs = $this->retrieveAttrs("radgroupcheck", $name);
 
 		// Retrieve reply attributes into $replyattrs
-		$user->replyattrs = $this->retrieveAttrs("radreply", $name);
+		$group->replyattrs = $this->retrieveAttrs("radgroupreply", $name);
 
-		return $user;
+		return $group;
 	}
 
-	function save(User $user) {
+	function save(Group $group) {
 		// Insert/update User-Group relations
 		$stmt = $this->db->prepare("REPLACE INTO radusergroup (username, groupname, priority) VALUES (:username, :groupname, :priority)");
-		$stmt->bindParam(":username", $user->name, PDO::PARAM_STR);
+		$stmt->bindParam(":groupname", $group->name, PDO::PARAM_STR);
 
-		foreach($user->groups as $priority => $groupname) {
+		foreach($group->users as $priority => $username) {
 			$stmt->bindParam(":priority", $priority, PDO::PARAM_INT);
-			$stmt->bindParam(":groupname", $groupname, PDO::PARAM_STR);
+			$stmt->bindParam(":username", $username, PDO::PARAM_STR);
 			$stmt->execute();
 		}
 
 		// Insert/update check attributes
-		$this->saveAttrs("radcheck", $user->name, $user->checkattrs);
+		$this->saveAttrs("radgroupcheck", $group->name, $group->checkattrs);
 
 		// Insert/update reply attributes
-		$this->saveAttrs("radreply", $user->name, $user->replyattrs);
+		$this->saveAttrs("radgroupreply", $group->name, $group->replyattrs);
 	}
 }
 
