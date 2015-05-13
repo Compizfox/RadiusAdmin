@@ -6,6 +6,9 @@ $(document).ready(function() {
 	$('#move-up').click(moveUp);
 	$('#move-down').click(moveDown);
 	$('#add').click(add);
+	$('#delete').click(function() {
+		$('#groups :selected').remove();
+	});
 
 	$('#textbox').keypress(function(event) {
 		if(event.keyCode == 13){

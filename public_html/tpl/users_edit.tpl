@@ -17,34 +17,31 @@
 						<h2>User information</h2>
 						<div class="form-horizontal">
 							<div class="form-group">
-								<label class="col-sm-1 control-label">Username</label>
+								<label class="col-sm-2 control-label">Username</label>
 								<div class="col-sm-2">
 									<input type="text" class="form-control" placeholder="Username" value="{$user->name}">
 								</div>
 							</div>
 							<h3>Groups</h3>
 							<div class="form-group">
-								<div class="col-sm-2 col-sm-offset-1">
+								<label class="col-sm-2 control-label">Groups user is member of (top is highest priority)</label>
+								<div class="col-sm-2">
 									<select name="groups" id="groups" class="form-control" size="5">
 										{html_options values=$user->groups output=$user->groups}
 									</select>
 								</div>
 								<div class="col-sm-1">
-									<button type="button" class="btn btn-default" id="move-up"><span class="glyphicon glyphicon-chevron-up"></span></button>
-									<br><br>
+									<button type="button" class="btn btn-default" id="move-up"><span class="glyphicon glyphicon-chevron-up"></span></button><br>
+									<button type="button" class="btn btn-default" id="delete"><span class="glyphicon glyphicon-remove"></span></button><br>
 									<button type="button" class="btn btn-default" id="move-down"><span class="glyphicon glyphicon-chevron-down"></span></button>
 								</div>
 							</div>
 							<div class="form-group">
-								<div class="col-sm-2 col-sm-offset-1">
+								<label class="col-sm-2 control-label">Add groups</label>
+								<div class="col-sm-2">
 									<input type="text" list="available-groups" class="form-control" id="textbox">
-
 									<datalist id="available-groups">
-										<option value="Internet Explorer">
-										<option value="Firefox">
-										<option value="Chrome">
-										<option value="Opera">
-										<option value="Safari">
+										{html_options values=$grouplist output=$grouplist}
 									</datalist>
 								</div>
 								<div class="col-sm-1">

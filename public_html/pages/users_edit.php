@@ -25,6 +25,7 @@
 */
 
 require_once(__DIR__ . "/../classes/User.php");
+require_once(__DIR__ . "/../classes/Group.php");
 require_once(__DIR__ . "/../include/db.php");
 
 // Get user
@@ -33,6 +34,8 @@ $user = $usermapper->getByName($_GET['user']);
 $smarty->assign("user", $user);
 
 // Get list of all groups
-
+$groupmapper = new GroupMapper($fr_db);
+$grouplist = $groupmapper->getNameList();
+$smarty->assign("grouplist", $grouplist);
 
 ?>
