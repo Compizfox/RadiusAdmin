@@ -39,13 +39,26 @@ abstract class RadEntity {
 abstract class RadEntityMapper {
 	protected $db;
 	protected $nameColumnName;
+	protected $checkTableName;
+	protected $replyTableName;
 
 	function __construct(PDO $db) {
 		$this->db = $db;
 	}
 
-	abstract function getNameList();
 	abstract function getByName($name);
+
+	function getNameList() {
+		$ncn = $this->nameColumnName;
+		$ctn = $this->checkTableName;
+		$rtn = $this->replyTableName;
+
+		$sql = "SELECT $ncn FROM radusergroup
+		  UNION SELECT $ncn FROM $ctn
+		  UNION SELECT $ncn FROM $rtn";
+
+		return $this->db->query($sql)->fetchAll(PDO::FETCH_COLUMN);
+	}
 
 	function getAll() {
 		// Instantiate User/Group for name, return array of Users/Groups

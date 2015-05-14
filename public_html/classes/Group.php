@@ -32,16 +32,8 @@ class Group extends RadEntity {
 
 Class GroupMapper extends RadEntityMapper {
 	protected $nameColumnName = "groupname";
-
-	function getNameList() {
-		$ncn = $this->nameColumnName;
-
-		$sql = "SELECT $ncn FROM radusergroup
-		  UNION SELECT $ncn FROM radgroupcheck
-		  UNION SELECT $ncn FROM radgroupreply";
-
-		return $this->db->query($sql)->fetchAll(PDO::FETCH_COLUMN);
-	}
+	protected $checkTableName = "radgroupcheck";
+	protected $replyTableName = "radgroupreply";
 
 	function getByName($name) {
 		// Instantiate Group
@@ -63,8 +55,13 @@ Class GroupMapper extends RadEntityMapper {
 	}
 
 	function save(Group $group) {
-		// Insert/update User-Group relations
-		$stmt = $this->db->prepare("REPLACE INTO radusergroup (username, groupname, priority) VALUES (:username, :groupname, :priority)");
+		// First delete all User-Group relations for this Group
+		$stmt = $this->db->prepare("DELETE FROM radusergroup WHERE groupname = :groupname");
+		$stmt->bindParam(":groupname", $group->name, PDO::PARAM_STR);
+		$stmt->execute();
+
+		// Insert User-Group relations
+		$stmt = $this->db->prepare("INSERT INTO radusergroup (username, groupname, priority) VALUES (:username, :groupname, :priority)");
 		$stmt->bindParam(":groupname", $group->name, PDO::PARAM_STR);
 
 		foreach($group->users as $priority => $username) {
