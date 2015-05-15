@@ -15,7 +15,7 @@
 			{foreach from=$users item=user}
 				<tr class="clickable-row" data-href="index.php?page=users_edit&amp;user={$user->name}">
 					<td>{$user->name}</td>
-					<td>{foreach from=$user->groups item=group}{$group}{/foreach}</td>
+					<td>{foreach from=$user->groups item=group name=groups}{$group}{if !$smarty.foreach.groups.last}, {/if}{/foreach}</td>
 				</tr>
 			{/foreach}
 		</tbody>
