@@ -29,14 +29,10 @@ $(document).ready(function() {
 	});
 
 	$('#add-row-checkattrs').click(function() {
-		addRow($('#checkattrs-table'));
+		$('#checkattrs-table').append('<tr><td><input name="checkattrs-id[]" type="hidden" value=""><input name="checkattrs-attribute[]" list="available-attributes" type="text" class="form-control"></td><td><select name="checkattrs-operator[]" class="form-control">' + operatoroptions + '</select></td><td><input name="checkattrs-value[]" type="text" class="form-control"></td><td><button type="button" class="btn btn-default" id="delete-row"><span class="glyphicon glyphicon-remove"></span></button></td></tr>');
 	});
 
 	$('#add-row-replyattrs').click(function() {
-		addRow($('#replyattrs-table'));
+		$('#replyattrs-table').append('<tr><td><input name="replyattrs-id[]" type="hidden" value=""><input name="replyattrs-attribute[]" list="available-attributes" type="text" class="form-control"></td><td><select name="replyattrs-operator[]" class="form-control">' + operatoroptions + '</select></td><td><input name="replyattrs-value[]" type="text" class="form-control"></td><td><button type="button" class="btn btn-default" id="delete-row"><span class="glyphicon glyphicon-remove"></span></button></td></tr>');
 	});
 });
-
-function addRow(parentel) {
-	parentel.append('<tr><td><input name="attribute[]" list="available-attributes" type="text" class="form-control"></td><td><select name="operator[]" class="form-control">' + operatoroptions + '</select></td><td><input name="value[]" type="text" class="form-control"></td><td><button type="button" class="btn btn-default" id="delete-row"><span class="glyphicon glyphicon-remove"></span></button></td></tr>');
-}

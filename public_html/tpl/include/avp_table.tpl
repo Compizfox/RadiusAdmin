@@ -36,6 +36,7 @@
 		{foreach from=$attributes item=attr}
 			<tr>
 				<td>
+					<input name="{$type}-id[]" type="hidden" value="{$attr->id}">
 					<input name="{$type}-attribute[]" list="available-attributes" type="text" class="form-control" value="{$attr->attribute}">
 				</td>
 				<td>
