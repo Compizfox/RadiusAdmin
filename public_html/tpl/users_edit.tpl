@@ -11,9 +11,10 @@
 			<li><a data-toggle="tab" href="#replyattrs">Reply attributes</a></li>
 		</ul>
 		<div class="tab-content">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<div id="userinfo" class="tab-pane fade in active">
+
+			<div id="userinfo" class="tab-pane fade in active">
+				<div class="panel panel-default">
+					<div class="panel-body">
 						<h2>User information</h2>
 						<div class="form-horizontal">
 							<div class="form-group">
@@ -40,9 +41,6 @@
 								<label class="col-sm-2 control-label">Add groups</label>
 								<div class="col-sm-2">
 									<input type="text" list="available-groups" class="form-control" id="textbox">
-									<datalist id="available-groups">
-										{html_options values=$grouplist output=$grouplist}
-									</datalist>
 								</div>
 								<div class="col-sm-1">
 									<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus"></span></button>
@@ -50,19 +48,37 @@
 							</div>
 						</div>
 					</div>
-					<div id="checkattrs" class="tab-pane fade">
-
+				</div>
+			</div>
+			<div id="checkattrs" class="tab-pane fade">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h2>Check attributes</h2>
+						{include file="tpl/include/avp_table.tpl" type="checkattrs" attributes=$user->checkattrs}
 					</div>
-					<div id="replyattrs" class="tab-pane fade">
-
+				</div>
+			</div>
+			<div id="replyattrs" class="tab-pane fade">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<h2>Reply attributes</h2>
+						{include file="tpl/include/avp_table.tpl" type="replyattrs" attributes=$user->replyattrs}
 					</div>
 				</div>
 			</div>
 		</div>
 		<button type="submit" class="btn btn-default">Apply</button>
+
+		<datalist id="available-groups">{html_options values=$grouplist}</datalist>
+		<datalist id="available-attributes">{html_options values=$attributelist}</datalist>
 	</form>
 {/block}
 
 {block name=script}
+	{capture operatoroptions assign="operatoroptions"}{html_options values=$operatorlist output=$operatorlist}{/capture}
+	<script>
+		var operatoroptions = '{$operatoroptions|escape:javascript}';
+	</script>
 	<script src="js/sortable_select.js"></script>
+	<script src="js/avp_table.js"></script>
 {/block}

@@ -38,4 +38,11 @@ $groupmapper = new GroupMapper($fr_db);
 $grouplist = $groupmapper->getNameList();
 $smarty->assign("grouplist", $grouplist);
 
+// operator list
+$operatorlist = ["=", ":=", "==", "+=", "!=", ">", ">=", "<", "<=", "=~", "!~", "=*", "!*"];
+$smarty->assign("operatorlist", $operatorlist);
+
+// Attribute list
+$attributelist = $ra_db->query("SELECT attribute FROM dictionary")->fetchAll(PDO::FETCH_COLUMN);
+$smarty->assign("attributelist", $attributelist);
 ?>
