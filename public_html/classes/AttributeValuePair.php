@@ -30,8 +30,9 @@ class AttributeValuePair {
 	public $operator;
 	public $value;
 
-	function __construct($attribute = NULL, $operator = NULL, $value = NULL) {
-		if(isset($attribute) && isset($operator) && isset($value)) {
+	function __construct($id = NULL, $attribute = NULL, $operator = NULL, $value = NULL) {
+		if(isset($id) && isset($attribute) && isset($operator) && isset($value)) {
+			$this->id = $id;
 			$this->attribute = $attribute;
 			$this->operator = $operator;
 			$this->value = $value;
