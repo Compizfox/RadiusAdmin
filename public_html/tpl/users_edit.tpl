@@ -1,7 +1,7 @@
 {extends file="tpl/parent.tpl"}
 
 {block name=title}RadiusAdmin - Edit user{/block}
-{block name=pagename}Edit user{/block}
+{block name=pagename}Edit user {$user->name}{/block}
 
 {block name=body}
 	<form action="" method="POST">
@@ -17,17 +17,11 @@
 					<div class="panel-body">
 						<h2>User information</h2>
 						<div class="form-horizontal">
-							<div class="form-group">
-								<label class="col-sm-2 control-label">Username</label>
-								<div class="col-sm-2">
-									<input type="text" class="form-control" placeholder="Username" value="{$user->name}">
-								</div>
-							</div>
 							<h3>Groups</h3>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Groups user is member of (top is highest priority)</label>
 								<div class="col-sm-2">
-									<select name="groups" id="groups" class="form-control" size="5">
+									<select name="groups[]" id="groups" class="form-control" multiple size="5">
 										{html_options values=$user->groups output=$user->groups}
 									</select>
 								</div>

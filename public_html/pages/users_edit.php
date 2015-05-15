@@ -28,21 +28,56 @@ require_once(__DIR__ . "/../classes/User.php");
 require_once(__DIR__ . "/../classes/Group.php");
 require_once(__DIR__ . "/../include/db.php");
 
-// Get user
-$usermapper = new UserMapper($fr_db);
-$user = $usermapper->getByName($_GET['user']);
-$smarty->assign("user", $user);
+if(empty($_GET['user'])) {
+	die("No user specified.");
+}
 
-// Get list of all groups
-$groupmapper = new GroupMapper($fr_db);
-$grouplist = $groupmapper->getNameList();
-$smarty->assign("grouplist", $grouplist);
+if($_SERVER['REQUEST_METHOD'] == "POST") {
+	// Construct User from POST data
+	$user = new User($_GET['user']);
 
-// operator list
-$operatorlist = ["=", ":=", "==", "+=", "!=", ">", ">=", "<", "<=", "=~", "!~", "=*", "!*"];
-$smarty->assign("operatorlist", $operatorlist);
+	// Groups
+	$user->groups = $_POST['groups'];
 
-// Attribute list
-$attributelist = $ra_db->query("SELECT attribute FROM dictionary")->fetchAll(PDO::FETCH_COLUMN);
-$smarty->assign("attributelist", $attributelist);
+	// Check attributes
+	if(isset($_POST['checkattrs-id'])) {
+		for($i = 0; $i < count($_POST['checkattrs-id']); $i++) {
+			$user->checkattrs[] = new AttributeValuePair($_POST['checkattrs-id'][$i], $_POST['checkattrs-attribute'][$i], $_POST['checkattrs-operator'][$i], $_POST['checkattrs-value'][$i]);
+		}
+	}
+
+	// Reply attributes
+	if(isset($_POST['replyattrs-id'])) {
+		for($i = 0; $i < count($_POST['replyattrs-id']); $i++) {
+			$user->replyattrs[] = new AttributeValuePair($_POST['replyattrs-id'][$i], $_POST['replyattrs-attribute'][$i], $_POST['replyattrs-operator'][$i], $_POST['replyattrs-value'][$i]);
+		}
+	}
+
+	// Save User in db
+	$usermapper = new UserMapper($fr_db);
+	$usermapper->save($user);
+
+	// PRG-redirect
+	header("Location: index.php?page=users_edit&user={$_GET['user']}");
+	exit();
+} else {
+	// Get user
+	$usermapper = new UserMapper($fr_db);
+	$user = $usermapper->getByName($_GET['user']);
+	$smarty->assign("user", $user);
+
+	// Get list of all groups
+	$groupmapper = new GroupMapper($fr_db);
+	$grouplist = $groupmapper->getNameList();
+	$smarty->assign("grouplist", $grouplist);
+
+	// operator list
+	$operatorlist = ["=", ":=", "==", "+=", "!=", ">", ">=", "<", "<=", "=~", "!~", "=*", "!*"];
+	$smarty->assign("operatorlist", $operatorlist);
+
+	// Attribute list
+	$attributelist = $ra_db->query("SELECT attribute FROM dictionary")->fetchAll(PDO::FETCH_COLUMN);
+	$smarty->assign("attributelist", $attributelist);
+}
+
 ?>
