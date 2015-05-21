@@ -28,16 +28,12 @@ require_once(__DIR__ . "/../classes/User.php");
 require_once(__DIR__ . "/../classes/Group.php");
 require_once(__DIR__ . "/../include/db.php");
 
-if(empty($_GET['user'])) {
-	die("No user specified.");
-}
-
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	// Construct User from POST data
-	$user = new User($_GET['user']);
+	$user = new User($_POST['username']);
 
 	// Groups
-	$user->groups = $_POST['groups'];
+	if(isset($_POST['groups'])) $user->groups = $_POST['groups'];
 
 	// Check attributes
 	if(isset($_POST['checkattrs-id'])) {
@@ -58,12 +54,21 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$usermapper->save($user);
 
 	// PRG-redirect
-	header("Location: index.php?page=users_edit&user={$_GET['user']}");
+	header("Location: index.php?page=users_edit&user={$_POST['username']}");
 	exit();
 } else {
+	if(empty($_GET['user'])) {
+		die("No user specified.");
+	}
+
 	// Get user
 	$usermapper = new UserMapper($fr_db);
 	$user = $usermapper->getByName($_GET['user']);
+
+	if(empty($user)) {
+		die("Non-existent user specified.");
+	}
+
 	$smarty->assign("user", $user);
 
 	// Get list of all groups

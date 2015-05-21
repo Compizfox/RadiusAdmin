@@ -4,7 +4,7 @@
 {block name=pagename}Edit user {$user->name}{/block}
 
 {block name=body}
-	<form action="" method="POST">
+	<form action="index.php?page=users_edit" method="POST">
 		<ul class="nav nav-tabs">
 			<li class="active"><a data-toggle="tab" href="#userinfo">User information</a></li>
 			<li><a data-toggle="tab" href="#checkattrs">Check attributes</a></li>
@@ -17,6 +17,9 @@
 					<div class="panel-body">
 						<h2>User information</h2>
 						<div class="form-horizontal">
+							{block name=userinfo}
+								<input name="username" type="hidden" value="{$user->name}">
+							{/block}
 							<h3>Groups</h3>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">Groups user is member of (top is highest priority)</label>
