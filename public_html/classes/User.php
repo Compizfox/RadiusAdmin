@@ -36,22 +36,24 @@ Class UserMapper extends RadEntityMapper {
 	protected $replyTableName = "radreply";
 
 	function getByName($name) {
-		// Instantiate User
-		$user = new User($name);
+		if(in_array($name, $this->getNameList())) {
+			// Instantiate User
+			$user = new User($name);
 
-		// Retrieve all groups this user is in, into $groups[]
-		$stmt = $this->db->prepare("SELECT groupname FROM radusergroup WHERE username = :username ORDER BY priority ASC");
-		$stmt->bindParam(":username", $name, PDO::PARAM_STR);
-		$stmt->execute();
-		$user->groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
+			// Retrieve all groups this user is in, into $groups[]
+			$stmt = $this->db->prepare("SELECT groupname FROM radusergroup WHERE username = :username ORDER BY priority ASC");
+			$stmt->bindParam(":username", $name, PDO::PARAM_STR);
+			$stmt->execute();
+			$user->groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-		// Retrieve check attributes into $checkattrs;
-		$user->checkattrs = $this->retrieveAttrs("radcheck", $name);
+			// Retrieve check attributes into $checkattrs;
+			$user->checkattrs = $this->retrieveAttrs("radcheck", $name);
 
-		// Retrieve reply attributes into $replyattrs
-		$user->replyattrs = $this->retrieveAttrs("radreply", $name);
+			// Retrieve reply attributes into $replyattrs
+			$user->replyattrs = $this->retrieveAttrs("radreply", $name);
 
-		return $user;
+			return $user;
+		}
 	}
 
 	function save(User $user) {
@@ -64,10 +66,12 @@ Class UserMapper extends RadEntityMapper {
 		$stmt = $this->db->prepare("INSERT INTO radusergroup (username, groupname, priority) VALUES (:username, :groupname, :priority)");
 		$stmt->bindParam(":username", $user->name, PDO::PARAM_STR);
 
-		foreach($user->groups as $priority => $groupname) {
-			$stmt->bindParam(":priority", $priority, PDO::PARAM_INT);
-			$stmt->bindParam(":groupname", $groupname, PDO::PARAM_STR);
-			$stmt->execute();
+		if(!empty($user->groups)) {
+			foreach($user->groups as $priority => $groupname) {
+				$stmt->bindParam(":priority", $priority, PDO::PARAM_INT);
+				$stmt->bindParam(":groupname", $groupname, PDO::PARAM_STR);
+				$stmt->execute();
+			}
 		}
 
 		// Insert/update check attributes
