@@ -46,6 +46,9 @@
 			<div class="col-sm-9 col-md-10 main">
 				<h1>{block name=pagename}{/block}</h1>
 				{block name=body}{/block}
+				<div style="margin-top: 10px">
+					{block name=alert}{/block}
+				</div>
 			</div>
 		</div>
 	</div>
