@@ -1,4 +1,4 @@
-{extends file="tpl/parent.tpl"}
+{extends file="tpl/abstract/parent.tpl"}
 {block name=title}RadiusAdmin - Home{/block}
 {block name=pagename}Home{/block}
 {block name=body}

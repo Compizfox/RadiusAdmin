@@ -1,4 +1,4 @@
-{extends file="tpl/parent.tpl"}
+{extends file="tpl/abstract/parent.tpl"}
 {block name=title}RadiusAdmin - 404{/block}
 {block name=pagename}404{/block}
 {block name=body}
