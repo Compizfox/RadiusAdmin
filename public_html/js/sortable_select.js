@@ -28,7 +28,7 @@ $(document).ready(function() {
 	$('#move-down').click(moveDown);
 	$('#add').click(add);
 	$('#delete').click(function() {
-		$('#groups :selected').remove();
+		$('#children :selected').remove();
 	});
 
 	$('#textbox').keypress(function(event) {
@@ -39,31 +39,31 @@ $(document).ready(function() {
 	});
 
 	$('form').submit( function() {
-		$("#groups option").prop("selected", true);
+		$("#children option").prop("selected", true);
 		return true;
 	});
 });
 
 function moveUp() {
-	$('#groups :selected').each(function() {
+	$('#children :selected').each(function() {
 		if (!$(this).prev().length) return false;
 		$(this).insertBefore($(this).prev());
 	});
-	$('#groups select').focus().blur();
+	$('#children select').focus().blur();
 }
 
 function moveDown() {
-	$($('#groups :selected').get().reverse()).each(function() {
+	$($('#children :selected').get().reverse()).each(function() {
 		if (!$(this).next().length) return false;
 		$(this).insertAfter($(this).next());
 	});
-	$('#groups select').focus().blur();
+	$('#children select').focus().blur();
 }
 
 function add() {
 	var opt = $('#textbox').val();
 
-	$('#groups')
+	$('#children')
 		.append($("<option></option>")
 			.attr("value", opt)
 			.text(opt));

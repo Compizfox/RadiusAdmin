@@ -1,5 +1,6 @@
-{*
-    Filename:   users.tpl
+<?php
+/*
+    Filename:   groups.php
     Date:       2015-05-30
     Author:     Lars Veldscholte
                 lars@veldscholte.eu
@@ -21,18 +22,15 @@
 
     You should have received a copy of the GNU General Public License
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
-*}
+*/
 
-{extends file="tpl/abstract/radentities.tpl"}
+require_once(__DIR__ . "/../classes/Group.php");
+require_once(__DIR__ . "/../include/db.php");
 
-{block name=title}RadiusAdmin - Users{/block}
-{block name=pagename}Users list{/block}
+// Retrieve all groups
+$groupmapper = new GroupMapper($fr_db);
+$groups = $groupmapper->getAll();
 
-{block name=tableheaders}
-	<th>Username</th>
-	<th>Groupname</th>
-{/block}
+$smarty->assign("entities", $groups);
 
-{block name=body prepend}
-	{assign "linkpage" "users_edit"}
-{/block}
+?>

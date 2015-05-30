@@ -1,6 +1,6 @@
 <?php
 /*
-    Filename:   users_newuser.php
+    Filename:   users_new.php
     Date:       2015-05-21
     Author:     Lars Veldscholte
                 lars@veldscholte.eu

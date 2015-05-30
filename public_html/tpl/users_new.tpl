@@ -3,11 +3,11 @@
 {block name=title}RadiusAdmin - New user{/block}
 {block name=pagename}New user{/block}
 
-{block name=userinfo}
+{block name=generalinfo}
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Username</label>
 		<div class="col-sm-2">
-			<input name="username" type="text" class="form-control">
+			<input name="name" type="text" class="form-control">
 		</div>
 	</div>
 {/block}

@@ -1,10 +1,10 @@
 <?php
 /*
-	Filename:	users_edit.php
-	Date:		2015-04-29
-    Author:		Lars Veldscholte
-				lars@veldscholte.eu
-				http://lars.veldscholte.eu
+    Filename:   groups_edit.php
+    Date:       2015-05-31
+    Author:     Lars Veldscholte
+                lars@veldscholte.eu
+                http://lars.veldscholte.eu
 
     Copyright 2015 Lars Veldscholte
 
@@ -30,51 +30,51 @@ require_once(__DIR__ . "/../include/db.php");
 
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	// Construct RadEntity from POST data
-	$user = new RadEntity($_POST['name']);
+	$group = new RadEntity($_POST['name']);
 
 	// Groups
-	if(isset($_POST['groups'])) $user->children = $_POST['groups'];
+	if(isset($_POST['children'])) $group->children = $_POST['children'];
 
 	// Check attributes
 	if(isset($_POST['checkattrs-id'])) {
 		for($i = 0; $i < count($_POST['checkattrs-id']); $i++) {
-			$user->checkattrs[] = new AttributeValuePair($_POST['checkattrs-id'][$i], $_POST['checkattrs-attribute'][$i], $_POST['checkattrs-operator'][$i], $_POST['checkattrs-value'][$i]);
+			$group->checkattrs[] = new AttributeValuePair($_POST['checkattrs-id'][$i], $_POST['checkattrs-attribute'][$i], $_POST['checkattrs-operator'][$i], $_POST['checkattrs-value'][$i]);
 		}
 	}
 
 	// Reply attributes
 	if(isset($_POST['replyattrs-id'])) {
 		for($i = 0; $i < count($_POST['replyattrs-id']); $i++) {
-			$user->replyattrs[] = new AttributeValuePair($_POST['replyattrs-id'][$i], $_POST['replyattrs-attribute'][$i], $_POST['replyattrs-operator'][$i], $_POST['replyattrs-value'][$i]);
+			$group->replyattrs[] = new AttributeValuePair($_POST['replyattrs-id'][$i], $_POST['replyattrs-attribute'][$i], $_POST['replyattrs-operator'][$i], $_POST['replyattrs-value'][$i]);
 		}
 	}
 
-	// Save user in db
-	$usermapper = new UserMapper($fr_db);
-	$usermapper->save($user);
+	// Save group in db
+	$groupmapper = new GroupMapper($fr_db);
+	$groupmapper->save($group);
 
 	// PRG-redirect
-	header("Location: index.php?page=users_edit&user={$_POST['name']}");
+	header("Location: index.php?page=groups_edit&user={$_POST['name']}");
 	exit();
 } else {
 	if(empty($_GET['name'])) {
-		die("No user specified.");
+		die("No group specified.");
 	}
 
 	// Get user
-	$usermapper = new UserMapper($fr_db);
-	$user = $usermapper->getByName($_GET['name']);
+	$groupmapper = new GroupMapper($fr_db);
+	$group = $groupmapper->getByName($_GET['name']);
 
-	if(empty($user)) {
-		die("Non-existent user specified.");
+	if(empty($group)) {
+		die("Non-existent group specified.");
 	}
 
-	$smarty->assign("entity", $user);
+	$smarty->assign("entity", $group);
 
-	// Get list of all groups
-	$groupmapper = new GroupMapper($fr_db);
-	$grouplist = $groupmapper->getNameList();
-	$smarty->assign("childrenlist", $grouplist);
+	// Get list of all users
+	$usermapper = new UserMapper($fr_db);
+	$userlist = $usermapper->getNameList();
+	$smarty->assign("childrenlist", $userlist);
 
 	// operator list
 	$operatorlist = json_decode($ra_db->query("SELECT data FROM serialized WHERE name = 'operatorlist'")->fetchColumn());

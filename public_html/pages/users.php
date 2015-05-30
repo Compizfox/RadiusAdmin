@@ -31,6 +31,6 @@ require_once(__DIR__ . "/../include/db.php");
 $usermapper = new UserMapper($fr_db);
 $users = $usermapper->getAll();
 
-$smarty->assign("users", $users);
+$smarty->assign("entities", $users);
 
 ?>

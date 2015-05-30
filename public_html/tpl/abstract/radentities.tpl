@@ -1,5 +1,5 @@
 {*
-    Filename:   users.tpl
+    Filename:   radentities.tpl
     Date:       2015-05-30
     Author:     Lars Veldscholte
                 lars@veldscholte.eu
@@ -23,16 +23,26 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{extends file="tpl/abstract/radentities.tpl"}
+{extends file="tpl/abstract/parent.tpl"}
 
-{block name=title}RadiusAdmin - Users{/block}
-{block name=pagename}Users list{/block}
-
-{block name=tableheaders}
-	<th>Username</th>
-	<th>Groupname</th>
+{block name=body}
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				{block name=tableheaders}{/block}
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$entities item=entity}
+				<tr class="clickable-row" data-href="index.php?page={$linkpage}&amp;name={$entity->name}">
+					<td>{$entity->name}</td>
+					<td>{foreach from=$entity->children item=child name=children}{$child}{if !$smarty.foreach.children.last}, {/if}{/foreach}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
 {/block}
 
-{block name=body prepend}
-	{assign "linkpage" "users_edit"}
+{block name=script}
+	<script src="js/clickable_table_rows.js"></script>
 {/block}
