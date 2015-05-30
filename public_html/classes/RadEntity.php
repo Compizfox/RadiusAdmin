@@ -26,10 +26,11 @@
 
 require_once(__DIR__ . "/AttributeValuePair.php");
 
-abstract class RadEntity {
+class RadEntity {
 	public $name;
 	public $checkattrs = [];
 	public $replyattrs = [];
+	public $children = [];
 
 	function __construct($name) {
 		$this->name = $name;
@@ -41,12 +42,37 @@ abstract class RadEntityMapper {
 	protected $nameColumnName;
 	protected $checkTableName;
 	protected $replyTableName;
+	protected $childrenNameColumnName;
 
 	function __construct(PDO $db) {
 		$this->db = $db;
 	}
 
-	abstract function getByName($name);
+	function getByName($name) {
+		if(in_array($name, $this->getNameList())) {
+			$ncn = $this->nameColumnName;
+			$ctn = $this->checkTableName;
+			$rtn = $this->replyTableName;
+			$cncn = $this->childrenNameColumnName;
+
+			// Instantiate entity of appropriate class
+			$radentity = new RadEntity($name);
+
+			// Retrieve all children into children[]
+			$stmt = $this->db->prepare("SELECT $cncn FROM radusergroup WHERE $ncn = :name ORDER BY priority ASC");
+			$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+			$stmt->execute();
+			$radentity->children = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+			// Retrieve check attributes into $checkattrs;
+			$radentity->checkattrs = $this->retrieveAttrs($ctn, $name);
+
+			// Retrieve reply attributes into $replyattrs
+			$radentity->replyattrs = $this->retrieveAttrs($rtn, $name);
+
+			return $radentity;
+		}
+	}
 
 	function getNameList() {
 		$ncn = $this->nameColumnName;
@@ -65,6 +91,36 @@ abstract class RadEntityMapper {
 		return array_map([$this, "getByName"], $this->getNameList());
 	}
 
+	function save(RadEntity $entity) {
+		$ncn = $this->nameColumnName;
+		$ctn = $this->checkTableName;
+		$rtn = $this->replyTableName;
+		$cncn = $this->childrenNameColumnName;
+
+		// First delete all User-Group relations for this entity
+		$stmt = $this->db->prepare("DELETE FROM radusergroup WHERE $ncn = :name");
+		$stmt->bindParam(":name", $entity->name, PDO::PARAM_STR);
+		$stmt->execute();
+
+		// Insert new User-Group relations
+		$stmt = $this->db->prepare("INSERT INTO radusergroup ($ncn, $cncn, priority) VALUES (:name, :childname, :priority)");
+		$stmt->bindParam(":name", $entity->name, PDO::PARAM_STR);
+
+		if(!empty($entity->children)) {
+			foreach($entity->children as $priority => $childname) {
+				$stmt->bindParam(":priority", $priority, PDO::PARAM_INT);
+				$stmt->bindParam(":childname", $childname, PDO::PARAM_STR);
+				$stmt->execute();
+			}
+		}
+
+		// Insert/update check attributes
+		$this->saveAttrs($ctn, $entity->name, $entity->checkattrs);
+
+		// Insert/update reply attributes
+		$this->saveAttrs($rtn, $entity->name, $entity->replyattrs);
+	}
+
 	protected function retrieveAttrs($tbl, $name) {
 		$ncn = $this->nameColumnName;
 
@@ -73,7 +129,7 @@ abstract class RadEntityMapper {
 		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
 		$stmt->execute();
 
-		// Can't use PDOStatement::fetchAll here, because the returned array must by indexed by the id
+		// Can't use PDOStatement::fetchAll here, because the returned array must by indexed by the id (which is necessary for array_diff_key())
 		$stmt->setFetchMode(PDO::FETCH_CLASS, "AttributeValuePair");
 		$avps = [];
 		while($avp = $stmt->fetch()) {

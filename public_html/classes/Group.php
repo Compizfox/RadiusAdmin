@@ -26,60 +26,11 @@
 
 require_once(__DIR__ . "/RadEntity.php");
 
-class Group extends RadEntity {
-	public $users = [];
-}
-
 Class GroupMapper extends RadEntityMapper {
 	protected $nameColumnName = "groupname";
 	protected $checkTableName = "radgroupcheck";
 	protected $replyTableName = "radgroupreply";
-
-	function getByName($name) {
-		if(in_array($name, $this->getNameList())) {
-			// Instantiate Group
-			$group = new Group($name);
-
-			// Retrieve all users in this group, into $users[]
-			$stmt = $this->db->prepare("SELECT username FROM radusergroup WHERE groupname = :groupname ORDER BY priority ASC");
-			$stmt->bindParam(":groupname", $name, PDO::PARAM_STR);
-			$stmt->execute();
-			$group->users = $stmt->fetchAll(PDO::FETCH_COLUMN);
-
-			// Retrieve check attributes into $checkattrs;
-			$group->checkattrs = $this->retrieveAttrs("radgroupcheck", $name);
-
-			// Retrieve reply attributes into $replyattrs
-			$group->replyattrs = $this->retrieveAttrs("radgroupreply", $name);
-
-			return $group;
-		}
-	}
-
-	function save(Group $group) {
-		// First delete all User-Group relations for this Group
-		$stmt = $this->db->prepare("DELETE FROM radusergroup WHERE groupname = :groupname");
-		$stmt->bindParam(":groupname", $group->name, PDO::PARAM_STR);
-		$stmt->execute();
-
-		// Insert User-Group relations
-		$stmt = $this->db->prepare("INSERT INTO radusergroup (username, groupname, priority) VALUES (:username, :groupname, :priority)");
-		$stmt->bindParam(":groupname", $group->name, PDO::PARAM_STR);
-
-		if(!empty($group->users)) {
-			foreach($group->users as $priority => $username) {
-				$stmt->bindParam(":priority", $priority, PDO::PARAM_INT);
-				$stmt->bindParam(":username", $username, PDO::PARAM_STR);
-				$stmt->execute();
-			}
-		}
-
-		// Insert/update check attributes
-		$this->saveAttrs("radgroupcheck", $group->name, $group->checkattrs);
-
-		// Insert/update reply attributes
-		$this->saveAttrs("radgroupreply", $group->name, $group->replyattrs);
-	}
+	protected $childrenNameColumnName = "username";
 }
 
 ?>
