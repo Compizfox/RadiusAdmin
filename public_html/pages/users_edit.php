@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$user = new RadEntity($_POST['name']);
 
 	// Groups
-	if(isset($_POST['groups'])) $user->children = $_POST['groups'];
+	if(isset($_POST['children'])) $user->children = $_POST['children'];
 
 	// Check attributes
 	if(isset($_POST['checkattrs-id'])) {
@@ -54,7 +54,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$usermapper->save($user);
 
 	// PRG-redirect
-	header("Location: index.php?page=users_edit&user={$_POST['name']}");
+	header("Location: index.php?page=users_edit&name={$_POST['name']}");
 	exit();
 } else {
 	if(empty($_GET['name'])) {
