@@ -51,9 +51,10 @@ In addition, RadiusAdmin also uses the following front-end frameworks:
 ### Screenshots
 
 ![](https://host.tuxplace.nl/screenshots/2015-04-27-23-04-42.png)
-![](https://host.tuxplace.nl/screenshots/2015-04-29-23-42-29.png)
-![](https://host.tuxplace.nl/screenshots/2015-04-29-23-42-45.png)
-![](https://host.tuxplace.nl/screenshots/2015-04-29-23-43-21.png)
+![](https://host.tuxplace.nl/screenshots/2015-06-21-23-08-00.png)
+![](https://host.tuxplace.nl/screenshots/2015-06-21-23-08-11.png)
+![](https://host.tuxplace.nl/screenshots/2015-06-21-23-12-05.png)
+![](https://host.tuxplace.nl/screenshots/2015-06-21-23-24-03.png)
 
 ### Installation
 
