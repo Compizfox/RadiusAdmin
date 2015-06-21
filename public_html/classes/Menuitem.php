@@ -31,16 +31,26 @@ class Menuitem {
 	public $options;
 	public $title;
 	public $glyphicon;
+	public $activeonly;
+	public $visible = true;
 	public $active = false;
 	public $submenuitems = [];
 
-	function __construct($id, $parent_id, $page, $options, $title, $glyphicon) {
+	function __construct($id, $parent_id, $page, $options, $title, $glyphicon, $activeonly) {
 		$this->id = $id;
 		$this->parentid = $parent_id;
 		$this->page = $page;
 		$this->options = $options;
 		$this->title = $title;
 		$this->glyphicon = $glyphicon;
+		$this->activeonly = $activeonly;
+	}
+
+	public function setActive($active) {
+		$this->active = $active;
+
+		// Set visibility to false if the menuitem is visible if active only, and not active
+		if($this->activeonly && !$this->active) $this->visible = false;
 	}
 
 	function populateSubmenu($levels) {

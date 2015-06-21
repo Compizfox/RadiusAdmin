@@ -4,7 +4,7 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 
 CREATE TABLE IF NOT EXISTS `dictionary` (
@@ -186,20 +186,22 @@ CREATE TABLE IF NOT EXISTS `menu` (
   `page` varchar(255) CHARACTER SET latin1 NOT NULL,
   `options` varchar(25) NOT NULL,
   `title` varchar(255) CHARACTER SET latin1 NOT NULL,
-  `glyphicon` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `glyphicon` varchar(255) NOT NULL,
+  `activeonly` tinyint(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
-INSERT INTO `menu` (`id`, `parent_id`, `page`, `options`, `title`, `glyphicon`) VALUES
-(1, 0, 'home', '', 'Home', 'glyphicon glyphicon-home'),
-(2, 0, 'users', '', 'Users', 'glyphicon glyphicon-user'),
-(3, 0, 'groups', '', 'Groups', 'fa fa-group'),
-(4, 0, 'accounting', '', 'Accounting', 'glyphicon glyphicon-list'),
-(5, 0, 'clients', '', 'Clients', 'fa fa-server'),
-(6, 0, 'log', '', 'Log', ''),
-(7, 2, 'users_new', '', 'New user', 'glyphicon glyphicon-plus'),
-(8, 2, 'users_edit', '', 'Edit user', ''),
-(9, 3, 'groups_edit', '', 'Edit group', ''),
-(10, 3, 'groups_new', '', 'New Group', 'glyphicon glyphicon-plus');
+INSERT INTO `menu` (`id`, `parent_id`, `page`, `options`, `title`, `glyphicon`, `activeonly`) VALUES
+(1, 0, 'home', '', 'Home', 'glyphicon glyphicon-home', 0),
+(2, 0, 'users', '', 'Users', 'glyphicon glyphicon-user', 0),
+(3, 0, 'groups', '', 'Groups', 'fa fa-group', 0),
+(4, 0, 'accounting', '', 'Accounting', 'glyphicon glyphicon-list', 0),
+(5, 0, 'clients', '', 'Clients', 'fa fa-server', 0),
+(6, 0, 'log', '', 'Log', '', 0),
+(7, 2, 'users_new', '', 'New user', 'glyphicon glyphicon-plus', 0),
+(8, 2, 'users_edit', '', 'Edit user', '', 1),
+(9, 3, 'groups_new', '', 'New Group', 'glyphicon glyphicon-plus', 0),
+
+(10, 3, 'groups_edit', '', 'Edit group', '', 1);
 
 CREATE TABLE IF NOT EXISTS `serialized` (
   `name` varchar(25) NOT NULL,
@@ -224,7 +226,7 @@ ALTER TABLE `serialized`
 ALTER TABLE `dictionary`
   MODIFY `attributeid` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=167;
 ALTER TABLE `menu`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
