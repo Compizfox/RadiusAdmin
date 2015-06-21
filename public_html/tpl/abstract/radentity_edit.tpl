@@ -87,7 +87,7 @@
 		</div>
 		<button type="submit" class="btn btn-default">Apply</button>
 
-		<datalist id="available-groups">{html_options values=$childrenlist}</datalist>
+		<datalist id="available-children">{html_options values=$childrenlist}</datalist>
 		<datalist id="available-attributes">{html_options values=$attributelist}</datalist>
 	</form>
 {/block}

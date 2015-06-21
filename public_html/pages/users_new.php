@@ -28,17 +28,17 @@ require_once(__DIR__ . "/../classes/User.php");
 require_once(__DIR__ . "/../classes/Group.php");
 require_once(__DIR__ . "/../include/db.php");
 
-// Assign empty user to Smarty so Smarty won't whine about $user not existing
-$user = new User("");
-$smarty->assign("user", $user);
+// Assign empty RadEntity to Smarty so Smarty won't whine about $entity not existing
+$entity = new RadEntity("");
+$smarty->assign("entity", $entity);
 
 // Get list of all groups
 $groupmapper = new GroupMapper($fr_db);
 $grouplist = $groupmapper->getNameList();
-$smarty->assign("grouplist", $grouplist);
+$smarty->assign("childrenlist", $grouplist);
 
 // operator list
-$operatorlist = ["=", ":=", "==", "+=", "!=", ">", ">=", "<", "<=", "=~", "!~", "=*", "!*"];
+$operatorlist = json_decode($ra_db->query("SELECT data FROM serialized WHERE name = 'operatorlist'")->fetchColumn());
 $smarty->assign("operatorlist", $operatorlist);
 
 // Attribute list
