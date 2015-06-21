@@ -34,6 +34,13 @@ RadiusAdmin doesn't augment or replace FreeRADIUS' default SQL schema: it just n
 ### Development status
 Currently, RadiusAdmin is in a very early stage. Most features are not done yet, and it is thus not ready for use.
 
+## 2015-6-21
+Alpha 1 is released. The core framework is done. The only features that work are:
+
+- User management
+- Group management
+- Reply and check attributes
+
 ### Used tools and libraries
 RadiusAdmin uses the following server-side tools, languages and libraries:
 
