@@ -44,24 +44,33 @@
 							<h3>Groups</h3>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">{block name=label1}{/block}</label>
-								<div class="col-sm-2">
-									<select name="children[]" id="children" class="form-control" multiple size="5">
-										{html_options values=$entity->children output=$entity->children}
-									</select>
-								</div>
-								<div class="col-sm-1">
-									<button type="button" class="btn btn-default" id="move-up"><span class="glyphicon glyphicon-chevron-up"></span></button><br>
-									<button type="button" class="btn btn-default" id="delete"><span class="glyphicon glyphicon-remove"></span></button><br>
-									<button type="button" class="btn btn-default" id="move-down"><span class="glyphicon glyphicon-chevron-down"></span></button>
+								<div class="col-sm-5">
+									<div class="row">
+										<div class="col-xs-6">
+											<select name="children[]" id="children" class="form-control" multiple size="5">
+												{html_options values=$entity->children output=$entity->children}
+											</select>
+										</div>
+										<div class="col-xs-1">
+											<button type="button" class="btn btn-default" id="move-up"><span class="glyphicon glyphicon-chevron-up"></span></button><br>
+											<button type="button" class="btn btn-default" id="delete"><span class="glyphicon glyphicon-remove"></span></button><br>
+											<button type="button" class="btn btn-default" id="move-down"><span class="glyphicon glyphicon-chevron-down"></span></button>
+										</div>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-2 control-label">{block name=label2}{/block}</label>
-								<div class="col-sm-2">
-									<input type="text" list="available-children" class="form-control" id="textbox">
-								</div>
-								<div class="col-sm-1">
-									<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus"></span></button>
+
+								<div class="col-sm-5">
+									<div class="row">
+										<div class="col-xs-6">
+											<input type="text" list="available-children" class="form-control" id="textbox">
+										</div>
+										<div class="col-xs-1">
+											<button type="button" class="btn btn-default" id="add"><span class="glyphicon glyphicon-plus"></span></button>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
