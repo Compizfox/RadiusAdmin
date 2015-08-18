@@ -1,4 +1,4 @@
-{extends file="tpl/users_edit.tpl"}
+{extends file="users_edit.tpl"}
 
 {block name=title}RadiusAdmin - New user{/block}
 {block name=pagename}New user{/block}

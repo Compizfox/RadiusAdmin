@@ -1,5 +1,5 @@
 {*
-    Filename:   users.tpl
+    Filename:   groups.tpl
     Date:       2015-05-30
     Author:     Lars Veldscholte
                 lars@veldscholte.eu
@@ -23,16 +23,16 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{extends file="tpl/abstract/radentities.tpl"}
+{extends file="abstract/radentities.tpl"}
 
-{block name=title}RadiusAdmin - Users{/block}
-{block name=pagename}Users list{/block}
+{block name=title}RadiusAdmin - Groups{/block}
+{block name=pagename}Groups list{/block}
 
 {block name=tableheaders}
-	<th>Username</th>
 	<th>Groupname</th>
+	<th>Users</th>
 {/block}
 
 {block name=body prepend}
-	{assign "linkpage" "users_edit"}
+	{assign "linkpage" "groups_edit"}
 {/block}

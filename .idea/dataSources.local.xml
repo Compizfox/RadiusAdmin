@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - @illium.tuxplace.nl" uuid="43ac3e70-69b2-411a-9a32-ae2213284c16">
+      <secret-storage>master_key</secret-storage>
+      <user-name>freeradius</user-name>
+      <schema-pattern>radius.* radiusadmin.*</schema-pattern>
+      <default-schemas>radius.* radiusadmin.*</default-schemas>
+    </data-source>
+  </component>
+</project>

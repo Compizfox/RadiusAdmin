@@ -30,10 +30,7 @@ spl_autoload_register(function($className) {
 	file_exists($file) and require($file);
 });
 
-// For external libs
-spl_autoload_register(function($className) {
-	$file = __DIR__ . "/../libs/" . strtolower($className) . "/$className.class.php";
-	file_exists($file) and require($file);
-});
+// Chainload Composer's autoloader
+require(__DIR__ . "/../../vendor/autoload.php");
 
 ?>

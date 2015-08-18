@@ -1,6 +1,6 @@
 {*
-    Filename:   groups.tpl
-    Date:       2015-05-30
+    Filename:   users_edit.tpl
+    Date:       2015-05-31
     Author:     Lars Veldscholte
                 lars@veldscholte.eu
                 http://lars.veldscholte.eu
@@ -23,16 +23,11 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{extends file="tpl/abstract/radentities.tpl"}
+{extends file="abstract/radentity_edit.tpl"}
 
-{block name=title}RadiusAdmin - Groups{/block}
-{block name=pagename}Groups list{/block}
+{block name=title}RadiusAdmin - Edit user{/block}
+{block name=pagename}Edit user {$entity->name}{/block}
 
-{block name=tableheaders}
-	<th>Groupname</th>
-	<th>Users</th>
-{/block}
-
-{block name=body prepend}
-	{assign "linkpage" "groups_edit"}
-{/block}
+{block name=formaction}index.php?page=users_edit{/block}
+{block name=label1}Groups user is member of (top is highest priority){/block}
+{block name=label2}Add groups{/block}

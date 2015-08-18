@@ -24,25 +24,27 @@
 	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require("include/autoloader.php");
-require("include/frontcontroller_helper.php");
+require("../app/include/autoloader.php");
+require("../app/include/frontcontroller_helper.php");
 
 $smarty = new Smarty;
+$smarty->setTemplateDir("../app/tpl/");
+$smarty->setCompileDir("../app/templates_c/");
 
 // Initialize menu
-require("include/menu.php");
+require("../app/include/menu.php");
 
 // Serve 404 page if page doesn't exist in db
 if ($page_exists) {
-	$file = "pages/" . $page . ".php";
+	$file = "../app/pages/" . $page . ".php";
 
 	// Include file if exists
 	file_exists($file) and include($file);
 
-	$smarty->display("tpl/$page.tpl");
+	$smarty->display("$page.tpl");
 } else {
 	header("HTTP/1.0 404 Not Found");
-	$smarty->display("tpl/404.tpl");
+	$smarty->display("404.tpl");
 }
 
 ?>

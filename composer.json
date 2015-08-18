@@ -1,0 +1,16 @@
+{
+    "name": "compizfox/radiusadmin",
+    "description": "FreeRADIUS webinterface",
+    "type": "project",
+    "require": {
+        "smarty/smarty": "^3.1",
+        "php": ">=5.4"
+    },
+    "license": "GPL",
+    "authors": [
+        {
+            "name": "Lars Veldscholte",
+            "email": "lars@veldscholte.eu"
+        }
+    ]
+}

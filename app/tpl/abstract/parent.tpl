@@ -29,7 +29,7 @@
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						{include file="tpl/include/topmenu.tpl"}
+						{include file="include/topmenu.tpl"}
 					</ul>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 		<div class="row">
 			<nav class="col-sm-3 col-md-2 sidebar">
 				<ul class="nav nav-sidebar">
-					{include file="tpl/include/leftmenu.tpl"}
+					{include file="include/leftmenu.tpl"}
 				</ul>
 			</nav>
 			<div class="col-sm-9 col-md-10 main">

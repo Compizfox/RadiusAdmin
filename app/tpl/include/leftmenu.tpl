@@ -9,7 +9,7 @@
 			</a>
 			{if !empty($item->submenuitems)}
 				<ul class="nav">
-					{include file="tpl/include/leftmenu.tpl" leftmenu_items=$item->submenuitems}
+					{include file="include/leftmenu.tpl" leftmenu_items=$item->submenuitems}
 				</ul>
 			{/if}
 		</li>

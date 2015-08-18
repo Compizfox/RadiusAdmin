@@ -1,6 +1,21 @@
-RadiusAdmin.iws
+### JetBrains template
+# User-specific stuff:
 .idea/workspace.xml
-.idea/dataSources.local.xml
-public_html/templates_c/
-public_html/libs/
-public_html/config.php
+.idea/tasks.xml
+.idea/dictionaries/
+
+# Sensitive or high-churn files:
+.idea/dataSources.ids
+.idea/dataSources.xml
+.idea/sqlDataSources.xml
+.idea/dynamic.xml
+.idea/uiDesigner.xml
+
+### Composer vendor dir
+vendor/
+
+### Smarty compiled templates
+app/templates_c/
+
+### Config file
+app/config.php

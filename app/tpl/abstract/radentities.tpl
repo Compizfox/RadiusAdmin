@@ -1,6 +1,6 @@
 {*
-    Filename:   groups_new.tpl
-    Date:       2015-06-21
+    Filename:   radentities.tpl
+    Date:       2015-05-30
     Author:     Lars Veldscholte
                 lars@veldscholte.eu
                 http://lars.veldscholte.eu
@@ -23,20 +23,26 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{extends file="tpl/groups_edit.tpl"}
+{extends file="abstract/parent.tpl"}
 
-{block name=title}RadiusAdmin - New group{/block}
-{block name=pagename}New group{/block}
-
-{block name=generalinfo}
-	<div class="form-group">
-		<label class="col-sm-2 control-label">Groupname</label>
-		<div class="col-sm-2">
-			<input name="name" type="text" class="form-control">
-		</div>
-	</div>
+{block name=body}
+	<table class="table table-bordered table-hover">
+		<thead>
+			<tr>
+				{block name=tableheaders}{/block}
+			</tr>
+		</thead>
+		<tbody>
+			{foreach from=$entities item=entity}
+				<tr class="clickable-row" data-href="index.php?page={$linkpage}&amp;name={$entity->name}">
+					<td>{$entity->name}</td>
+					<td>{foreach from=$entity->children item=child name=children}{$child}{if !$smarty.foreach.children.last}, {/if}{/foreach}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
 {/block}
 
-{block name=alert}
-	<div class="alert alert-info" role="alert"><strong>Please note</strong> that, due to rlm_sql database design, it is not possible to add a new group without specifying any users or attributes. Such an group will be silently discarded.</div>
+{block name=script}
+	<script src="js/clickable_table_rows.js"></script>
 {/block}

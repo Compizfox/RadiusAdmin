@@ -23,7 +23,7 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 *}
 
-{extends file="tpl/abstract/parent.tpl"}
+{extends file="abstract/parent.tpl"}
 
 {block name=body}
 	<form action="{block name=formaction}{/block}" method="POST">
@@ -81,7 +81,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<h2>Check attributes</h2>
-						{include file="tpl/include/avp_table.tpl" type="checkattrs" attributes=$entity->checkattrs}
+						{include file="include/avp_table.tpl" type="checkattrs" attributes=$entity->checkattrs}
 					</div>
 				</div>
 			</div>
@@ -89,7 +89,7 @@
 				<div class="panel panel-default">
 					<div class="panel-body">
 						<h2>Reply attributes</h2>
-						{include file="tpl/include/avp_table.tpl" type="replyattrs" attributes=$entity->replyattrs}
+						{include file="include/avp_table.tpl" type="replyattrs" attributes=$entity->replyattrs}
 					</div>
 				</div>
 			</div>
