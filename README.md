@@ -66,15 +66,26 @@ In addition, RadiusAdmin also uses the following front-end frameworks:
 ### Installation
 
 #### Requirements
-The development target for RadiusAdmin is PHP 5.6, but it will probably work on older PHP versions > 5.3 too.
+RadiusAdmin should run on PHP >= 5.4. RadiusAdmin depends on Smarty, and dependencies are managed using Composer.
 
 #### Databases
 RadiusAdmin needs access to 2 databases: FreeRADIUS' database and RadiusAdmin's own database. These two database don't necessarily have to reside on the same server, although the example config file assumes they do.
 
 The schema for FreeRADIUS' database can be found in _raddb/mods-config/sql/main/*/schema.sql_. RadiusAdmin's schema is *radiusadmin.sql* and should be in this directory.
 
-RadiusAdmin is made with MySQL in mind, but can probably work with other RDBMSs as well by editing *public_html/include/db.php*.
+RadiusAdmin is made with MySQL in mind, but can probably work with other RDBMSs as well by editing *app/include/db.php*.
 
 #### Instructions
-Download a stable release or clone the development branch (bleeding edge!). You only need to extract the contents of the *public_html* folder to the docroot. Create a database and user for RadiusAdmin and import the SQL file. Copy *public_html/config.php.example* to *config.php* and edit the file to reflect your database settings.
+Download a stable release or clone the development branch (bleeding edge!). Put them somewhere where your webserver has access to them.
 
+Now run `composer install` in the directory containing *composer.json* to let Composer download the dependencies for you. The directory structure should now look like this:
+
+- RadiusAdmin
+  - app
+  - public_html
+  - tmp
+  - vendor
+
+As you might have guessed, the *public_html* directory is going to be the docroot. All the other directories shouldn't be publicly available. You webserver should have read+execute access to all 4 subdirectories. In addition, it needs write access to the *tmp* directory.
+
+Create a database and user for RadiusAdmin and import the SQL file. Copy *app/config.php.example* to *app/config.php* and edit the file to reflect your database settings.
