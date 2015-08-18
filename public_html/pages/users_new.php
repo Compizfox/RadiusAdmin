@@ -24,10 +24,6 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/../classes/User.php");
-require_once(__DIR__ . "/../classes/Group.php");
-require_once(__DIR__ . "/../include/db.php");
-
 // Assign empty RadEntity to Smarty so Smarty won't whine about $entity not existing
 $entity = new RadEntity("");
 $smarty->assign("entity", $entity);

@@ -1,10 +1,10 @@
 <?php
 /*
-	Filename:	menu.php
-	Date:		2015-04-26
-	Author:		Lars Veldscholte
-				lars@veldscholte.eu
-				http://lars.veldscholte.eu
+	Filename:   autoloader.php
+	Date:       2015-08-18
+	Author:     Lars Veldscholte
+	            lars@veldscholte.eu
+	            http://lars.veldscholte.eu
 
 	Copyright 2015 Lars Veldscholte
 
@@ -24,17 +24,16 @@
 	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// We need the base page_id (highest level parent of current page)
-$base_pageid_finder = new BasePageidFinder();
-$baseid = $base_pageid_finder->getBasePageid($current_pageid);
+// Normal classes
+spl_autoload_register(function($className) {
+	$file = __DIR__ . "/../classes/$className.php";
+	file_exists($file) and require($file);
+});
 
-// Draw topmenu (all menuitems for topmenu have parent_id=0 in db)
-$topmenu = new Menu(0, 1, $baseid);
-$smarty->assign("topmenu_items", $topmenu->getMenuData());
+// For external libs
+spl_autoload_register(function($className) {
+	$file = __DIR__ . "/../libs/" . strtolower($className) . "/$className.class.php";
+	file_exists($file) and require($file);
+});
 
-// Draw leftmenu
-
-// The left menu should always contain the children of the highest parent level
-$leftmenu = new Menu($baseid, 2);
-$smarty->assign("leftmenu_items", $leftmenu->getMenuData());
 ?>

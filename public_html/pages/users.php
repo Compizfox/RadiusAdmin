@@ -24,9 +24,6 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/../classes/User.php");
-require_once(__DIR__ . "/../include/db.php");
-
 // Retrieve all users
 $usermapper = new UserMapper($fr_db);
 $users = $usermapper->getAll();

@@ -24,7 +24,7 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/db.php");
+require(__DIR__ . "/db.php");
 
 ini_set("display_errors", 1);
 error_reporting(E_ALL);

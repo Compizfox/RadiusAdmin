@@ -24,13 +24,13 @@
 	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once("libs/Smarty.class.php");
-require_once("include/frontcontroller_helper.php");
+require("include/autoloader.php");
+require("include/frontcontroller_helper.php");
 
 $smarty = new Smarty;
 
 // Initialize menu
-require_once("include/menu.php");
+require("include/menu.php");
 
 // Serve 404 page if page doesn't exist in db
 if ($page_exists) {

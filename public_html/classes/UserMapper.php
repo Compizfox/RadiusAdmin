@@ -1,6 +1,6 @@
 <?php
 /*
-	Filename:	Group.php
+	Filename:	UserMapper.php
 	Date:		2015-04-27
     Author:		Lars Veldscholte
 				lars@veldscholte.eu
@@ -24,13 +24,10 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/RadEntity.php");
-
-Class GroupMapper extends RadEntityMapper {
-	protected $nameColumnName = "groupname";
-	protected $checkTableName = "radgroupcheck";
-	protected $replyTableName = "radgroupreply";
-	protected $childrenNameColumnName = "username";
+Class UserMapper extends RadEntityMapper {
+	protected $nameColumnName = "username";
+	protected $checkTableName = "radcheck";
+	protected $replyTableName = "radreply";
+	protected $childrenNameColumnName = "groupname";
 }
-
 ?>

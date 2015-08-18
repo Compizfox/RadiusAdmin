@@ -24,7 +24,7 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/../config.php");
+require(__DIR__ . "/../config.php");
 
 $fr_db = new PDO("mysql:host=$fr_host;dbname=$fr_db;charset=utf8", $fr_user, $fr_pass, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
 $ra_db = new PDO("mysql:host=$ra_host;dbname=$ra_db;charset=utf8", $ra_user, $ra_pass, [PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);

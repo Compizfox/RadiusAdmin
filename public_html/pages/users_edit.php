@@ -24,10 +24,6 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/../classes/User.php");
-require_once(__DIR__ . "/../classes/Group.php");
-require_once(__DIR__ . "/../include/db.php");
-
 if($_SERVER['REQUEST_METHOD'] == "POST") {
 	// Construct RadEntity from POST data
 	$user = new RadEntity($_POST['name']);

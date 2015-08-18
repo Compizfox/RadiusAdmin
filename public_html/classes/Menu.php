@@ -24,8 +24,6 @@
     along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
 */
 
-require_once(__DIR__ . "/Menuitem.php");
-
 class Menu {
 	private $parent_id;
 	private $levels;
