@@ -3,8 +3,8 @@
 	Filename:   index.php
 	Date:       2015-04-26
 	Author:     Lars Veldscholte
-				lars@veldscholte.eu
-				http://lars.veldscholte.eu
+	            lars@veldscholte.eu
+	            http://lars.veldscholte.eu
 
 	Copyright 2015 Lars Veldscholte
 
@@ -25,11 +25,8 @@
 */
 
 require("../app/include/autoloader.php");
+require("../app/include/db.php");
 require("../app/include/frontcontroller_helper.php");
-
-$smarty = new Smarty;
-$smarty->setTemplateDir("../app/tpl/");
-$smarty->setCompileDir("../app/templates_c/");
 
 // Initialize menu
 require("../app/include/menu.php");

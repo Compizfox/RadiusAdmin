@@ -15,7 +15,7 @@
 vendor/
 
 ### Smarty compiled templates
-app/templates_c/
+tmp/templates_c/
 
 ### Config file
 app/config.php
