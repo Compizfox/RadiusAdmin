@@ -25,16 +25,16 @@
 */
 
 // We need the base page_id (highest level parent of current page)
-$base_pageid_finder = new BasePageidFinder();
+$base_pageid_finder = new BasePageidFinder($ra_db);
 $baseid = $base_pageid_finder->getBasePageid($current_pageid);
 
 // Draw topmenu (all menuitems for topmenu have parent_id=0 in db)
-$topmenu = new Menu(0, 1, $baseid);
+$topmenu = new Menu($ra_db, 0, 1, $baseid);
 $smarty->assign("topmenu_items", $topmenu->getMenuData());
 
 // Draw leftmenu
 
 // The left menu should always contain the children of the highest parent level
-$leftmenu = new Menu($baseid, 2);
+$leftmenu = new Menu($ra_db, $baseid, 2);
 $smarty->assign("leftmenu_items", $leftmenu->getMenuData());
 ?>

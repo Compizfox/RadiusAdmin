@@ -53,8 +53,8 @@ class Menuitem {
 		if($this->activeonly && !$this->active) $this->visible = false;
 	}
 
-	function populateSubmenu($levels) {
-		$submenu = new Menu($this->id, $levels);
+	function populateSubmenu($db, $levels) {
+		$submenu = new Menu($db, $this->id, $levels);
 		$this->submenuitems = $submenu->getMenuData();
 	}
 

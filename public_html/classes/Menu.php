@@ -25,12 +25,14 @@
 */
 
 class Menu {
+	private $db;
 	private $parent_id;
 	private $levels;
 	private $baseid;
 	private $menuitems = [];
 
-	function __construct($parent_id, $levels = 1, $baseid = null) {
+	function __construct(PDO $db, $parent_id, $levels = 1, $baseid = null) {
+		$this->db = $db;
 		$this->parent_id = $parent_id;
 		$this->levels = $levels;
 		$this->baseid = $baseid;
@@ -38,9 +40,7 @@ class Menu {
 	}
 
 	private function populate() {
-		global $ra_db;
-
-		$stmt = $ra_db->prepare("SELECT id, parent_id, page, options, title, glyphicon, activeonly FROM menu WHERE parent_id = :parent_id ORDER BY id ASC");
+		$stmt = $this->db->prepare("SELECT id, parent_id, page, options, title, glyphicon, activeonly FROM menu WHERE parent_id = :parent_id ORDER BY id ASC");
 		$stmt->bindParam(":parent_id", $this->parent_id, PDO::PARAM_INT);
 		$stmt->execute();
 
@@ -58,7 +58,7 @@ class Menu {
 
 		// If levels > 1, menuitem should recursively lookup for submenuitems
 		if($this->levels > 1) {
-			$item->populateSubmenu($this->levels - 1);
+			$item->populateSubmenu($this->db, $this->levels - 1);
 		}
 
 		$this->menuitems[] = $item;
@@ -69,5 +69,3 @@ class Menu {
 		return $this->menuitems;
 	}
 }
-
-// TODO: This class is the only class in the project to use the Active Record ORM pattern. I probably want to switch that to Data Mapper sometime

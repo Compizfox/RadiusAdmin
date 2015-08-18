@@ -25,13 +25,13 @@
 */
 
 class BasePageidFinder {
+	private $db;
 	private $stmt;
 	private $pageid;
 
-	function __construct() {
-		global $ra_db;
-
-		$this->stmt = $ra_db->prepare("SELECT parent_id FROM menu WHERE id = :id");
+	function __construct(PDO $db) {
+		$this->db = $db;
+		$this->stmt = $db->prepare("SELECT parent_id FROM menu WHERE id = :id");
 		$this->stmt->bindParam(":id", $this->pageid, PDO::PARAM_INT);
 	}
 
