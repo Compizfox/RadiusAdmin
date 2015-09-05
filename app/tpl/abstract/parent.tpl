@@ -43,7 +43,7 @@
 					{include file="include/leftmenu.tpl"}
 				</ul>
 			</nav>
-			<div class="col-sm-9 col-md-10 main">
+			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h1>{block name=pagename}{/block}</h1>
 				{block name=body}{/block}
 				<div style="margin-top: 10px">

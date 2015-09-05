@@ -3,12 +3,6 @@ body {
     padding-top: 51px;
 }
 
-@media (min-width: 768px) {
-    html, body, body > .container-fluid, .container-fluid > .row, .sidebar {
-        height: 100%;
-    }
-}
-
 footer {
     min-height: 0 !important;
     height: 40px;
@@ -22,6 +16,18 @@ footer {
 .sidebar {
     padding: 20px;
     background-color: #5A5F66;
+}
+
+/* Collapse sidebar on small screens */
+@media (min-width: 768px) {
+    .sidebar {
+        position: fixed;
+        top: 51px;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        display: block;
+    }
 }
 
 .nav-sidebar {
@@ -64,6 +70,7 @@ footer {
     background-color: #454545;
 }
 
+/* Collapse navbar title on small screens */
 @media (max-width: 1175px) {
     .navbar-header > .h1 {
         display: none;
