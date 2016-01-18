@@ -4,7 +4,7 @@
     "type": "project",
     "require": {
         "smarty/smarty": "^3.1",
-        "php": ">=5.4"
+        "php": ">=7.0"
     },
     "license": "GPL",
     "authors": [
