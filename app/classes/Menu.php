@@ -31,7 +31,7 @@ class Menu {
 	private $baseid;
 	private $menuitems = [];
 
-	function __construct(PDO $db, $parent_id, $levels = 1, $baseid = null) {
+	function __construct(PDO $db, int $parent_id, int $levels = 1, int $baseid = null) {
 		$this->db = $db;
 		$this->parent_id = $parent_id;
 		$this->levels = $levels;
@@ -48,7 +48,7 @@ class Menu {
 		$stmt->fetchAll(PDO::FETCH_FUNC, [$this, "addMenuItem"]);
 	}
 
-	function addMenuItem($id, $parent_id, $mpage, $options, $title, $glyphicon, $activeonly) {
+	function addMenuItem(int $id, int $parent_id, string $mpage, string $options, string $title, string $glyphicon, bool $activeonly) {
 		global $page;
 		$item = new Menuitem($id, $parent_id, $mpage, $options, $title, $glyphicon, $activeonly);
 
@@ -64,7 +64,7 @@ class Menu {
 		$this->menuitems[] = $item;
 	}
 
-	function getMenuData() {
+	function getMenuData(): array {
 		// Return an array of Menuitems
 		return $this->menuitems;
 	}

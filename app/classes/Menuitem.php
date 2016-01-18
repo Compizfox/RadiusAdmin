@@ -36,7 +36,7 @@ class Menuitem {
 	public $active = false;
 	public $submenuitems = [];
 
-	function __construct($id, $parent_id, $page, $options, $title, $glyphicon, $activeonly) {
+	function __construct(int $id, int $parent_id, string $page, string $options, string $title, string $glyphicon, bool $activeonly) {
 		$this->id = $id;
 		$this->parentid = $parent_id;
 		$this->page = $page;
@@ -46,19 +46,19 @@ class Menuitem {
 		$this->activeonly = $activeonly;
 	}
 
-	public function setActive($active) {
+	public function setActive(bool $active) {
 		$this->active = $active;
 
 		// Set visibility to false if the menuitem is visible if active only, and not active
 		if($this->activeonly && !$this->active) $this->visible = false;
 	}
 
-	function populateSubmenu($db, $levels) {
+	function populateSubmenu(PDO $db, int $levels) {
 		$submenu = new Menu($db, $this->id, $levels);
 		$this->submenuitems = $submenu->getMenuData();
 	}
 
-	function getUrl() {
+	function getUrl(): string {
 		return "index.php?page=" . $this->page . $this->options;
 	}
 }

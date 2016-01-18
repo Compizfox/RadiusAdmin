@@ -35,7 +35,7 @@ class BasePageidFinder {
 		$this->stmt->bindParam(":id", $this->pageid, PDO::PARAM_INT);
 	}
 
-	function getBasePageid($pageid) {
+	function getBasePageid(int $pageid): int {
 		$this->pageid = $pageid;
 		$this->stmt->execute();
 

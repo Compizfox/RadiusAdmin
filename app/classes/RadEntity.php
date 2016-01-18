@@ -30,7 +30,7 @@ class RadEntity {
 	public $replyattrs = [];
 	public $children = [];
 
-	function __construct($name) {
+	function __construct(string $name) {
 		$this->name = $name;
 	}
 }

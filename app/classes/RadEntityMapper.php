@@ -35,7 +35,7 @@ abstract class RadEntityMapper {
 		$this->db = $db;
 	}
 
-	function getByName($name) {
+	function getByName(string $name): RadEntity {
 		if(in_array($name, $this->getNameList())) {
 			$ncn = $this->nameColumnName;
 			$ctn = $this->checkTableName;
@@ -61,7 +61,7 @@ abstract class RadEntityMapper {
 		}
 	}
 
-	function getNameList() {
+	function getNameList(): array {
 		$ncn = $this->nameColumnName;
 		$ctn = $this->checkTableName;
 		$rtn = $this->replyTableName;
@@ -73,7 +73,7 @@ abstract class RadEntityMapper {
 		return $this->db->query($sql)->fetchAll(PDO::FETCH_COLUMN);
 	}
 
-	function getAll() {
+	function getAll(): array {
 		// Instantiate User/Group for name, return array of Users/Groups
 		return array_map([$this, "getByName"], $this->getNameList());
 	}
@@ -108,7 +108,7 @@ abstract class RadEntityMapper {
 		$this->saveAttrs($rtn, $entity->name, $entity->replyattrs);
 	}
 
-	protected function retrieveAttrs($tbl, $name) {
+	protected function retrieveAttrs(string $tbl, string $name): array {
 		$ncn = $this->nameColumnName;
 
 		// Retrieve and return all attributes as an array of AttributeValuePairs
@@ -126,7 +126,7 @@ abstract class RadEntityMapper {
 		return $avps;
 	}
 
-	protected function saveAttrs($tbl, $name, array $avps) {
+	protected function saveAttrs(string $tbl, string $name, array $avps) {
 		$ncn = $this->nameColumnName;
 
 		// Find out whether AVPs exist in db that are deleted in the new object
