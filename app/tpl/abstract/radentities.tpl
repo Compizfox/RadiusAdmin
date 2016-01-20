@@ -37,6 +37,7 @@
 				<tr class="clickable-row" data-href="index.php?page={$linkpage}&amp;name={$entity->name}">
 					<td>{$entity->name}</td>
 					<td>{foreach from=$entity->children item=child name=children}{$child}{if !$smarty.foreach.children.last}, {/if}{/foreach}</td>
+					<td><a href="index.php?page={$linkdelete}&amp;name={$entity->name}"><span class="glyphicon glyphicon-trash"></span></a></td>
 				</tr>
 			{/foreach}
 		</tbody>

@@ -35,4 +35,5 @@
 
 {block name=body prepend}
 	{assign "linkpage" "groups_edit"}
+	{assign "linkdelete" "groups_delete"}
 {/block}

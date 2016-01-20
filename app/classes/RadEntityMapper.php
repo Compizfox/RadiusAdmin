@@ -108,6 +108,27 @@ abstract class RadEntityMapper {
 		$this->saveAttrs($rtn, $entity->name, $entity->replyattrs);
 	}
 
+	function delete(string $name) {
+		$ncn = $this->nameColumnName;
+		$ctn = $this->checkTableName;
+		$rtn = $this->replyTableName;
+
+		// Delete all User-Group relations for this entity
+		$stmt = $this->db->prepare("DELETE FROM radusergroup WHERE $ncn = :name");
+		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+		$stmt->execute();
+
+		// Delete all rows from the check table
+		$stmt = $this->db->prepare("DELETE FROM $ctn WHERE $ncn = :name");
+		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+		$stmt->execute();
+
+		// Delete all rows from the reply table
+		$stmt = $this->db->prepare("DELETE FROM $rtn WHERE $ncn = :name");
+		$stmt->bindParam(":name", $name, PDO::PARAM_STR);
+		$stmt->execute();
+	}
+
 	protected function retrieveAttrs(string $tbl, string $name): array {
 		$ncn = $this->nameColumnName;
 
