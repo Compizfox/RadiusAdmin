@@ -27,6 +27,7 @@
 $groupmapper = new GroupMapper($fr_db);
 $groupmapper->delete($_GET['name']);
 
+$messagecontroller->set(new SuccessfulDeleteMessage());
 header("Location: index.php?page=groups");
 
 ?>

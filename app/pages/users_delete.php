@@ -27,6 +27,7 @@
 $usermapper = new UserMapper($fr_db);
 $usermapper->delete($_GET['name']);
 
+$messagecontroller->set(new SuccessfulDeleteMessage());
 header("Location: index.php?page=users");
 
 ?>
