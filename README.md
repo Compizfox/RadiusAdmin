@@ -66,7 +66,7 @@ In addition, RadiusAdmin also uses the following front-end frameworks:
 ### Installation
 
 #### Requirements
-RadiusAdmin should run on PHP >= 5.4. RadiusAdmin depends on Smarty, and dependencies are managed using Composer.
+Since the latest version uses scalar type hinting and return type hinting, it requires PHP 7. Older versions work on PHP 5.4. RadiusAdmin depends on Smarty, and dependencies are managed using Composer.
 
 #### Databases
 RadiusAdmin needs access to 2 databases: FreeRADIUS' database and RadiusAdmin's own database. These two database don't necessarily have to reside on the same server, although the example config file assumes they do.
