@@ -38,7 +38,8 @@ if ($page_exists) {
 	// Include file if exists
 	file_exists($file) and include($file);
 
-	$smarty->display("$page.tpl");
+	// Display template if exists
+	file_exists($smarty->getTemplateDir(0) . "$page.tpl") and $smarty->display("$page.tpl");
 } else {
 	header("HTTP/1.0 404 Not Found");
 	$smarty->display("404.tpl");

@@ -38,10 +38,19 @@ if(isset($_GET['page'])) {
 $stmt = $ra_db->prepare("SELECT * FROM menu WHERE page = :page");
 $stmt->bindParam(":page", $page, PDO::PARAM_STR);
 $stmt->execute();
-$result = $stmt->fetch();
 
-// Save this for later use
-$current_pageid = $result['id'];
+// First try to get an exact match for both page and options
+$exactmatch = array_filter($result = $stmt->fetchAll(), function($row) {
+	// Compare querystring (after page, beginning with &) with options in dbase
+	return $row['options'] == substr($_SERVER['QUERY_STRING'], strpos($_SERVER['QUERY_STRING'], "&"));
+});
+
+if(!empty($exactmatch)) {
+	$current_pageid = reset($exactmatch)['id'];
+} else {
+	// If there is not exact match, go with the (first, and probably only) row that matches the page
+	$current_pageid = $result[0]['id'];
+}
 
 if(!empty($result)) {
 	$page_exists = true;
