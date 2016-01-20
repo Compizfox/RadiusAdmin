@@ -31,6 +31,11 @@ require("../app/include/frontcontroller_helper.php");
 // Initialize menu
 require("../app/include/menu.php");
 
+// Assign message if exist
+if($messagecontroller->getStatus()) {
+	$smarty->assign("message", $messagecontroller->getAndClear());
+}
+
 // Serve 404 page if page doesn't exist in db
 if ($page_exists) {
 	$file = "../app/pages/" . $page . ".php";

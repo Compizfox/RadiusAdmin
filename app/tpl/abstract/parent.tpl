@@ -45,6 +45,11 @@
 			</nav>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h1>{block name=pagename}{/block}</h1>
+				{if isset($message)}
+					<div class="alert alert-{$message->getType()}" role="alert">
+						{$message->getText()}
+					</div>
+				{/if}
 				{block name=body}{/block}
 				<div style="margin-top: 10px">
 					{block name=alert}{/block}

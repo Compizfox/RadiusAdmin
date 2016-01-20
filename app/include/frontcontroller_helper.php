@@ -27,6 +27,10 @@
 ini_set("display_errors", 1);
 error_reporting(E_ALL);
 
+// Initialize session and messagecontroller
+$session = new Session();
+$messagecontroller = new MessageController($session);
+
 // Default page is home
 if(isset($_GET['page'])) {
 	$page = $_GET['page'];

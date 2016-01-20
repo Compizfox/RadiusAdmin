@@ -1,6 +1,6 @@
 <?php
 /**
- 	Filename:   autoloader.php
+ 	Filename:   messages.php
  	Date:       2016-01-20
  	Author:     Lars Veldscholte
  	            lars@veldscholte.eu
@@ -24,20 +24,22 @@
  	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Normal classes
-spl_autoload_register(function($className) {
-	$file = __DIR__ . "/../classes/$className.php";
-	file_exists($file) and require($file);
-});
+abstract class Message {
+	const success = "success";
+	const info = "info";
+	const warning = "warning";
+	const danger = "danger";
 
-// All messages are in one file
-spl_autoload_register(function($className) {
-	if(strpos($className, "Message") != false) {
-		require(__DIR__ . "/../classes/messages.php");
+	abstract public function getText();
+	abstract public function getType();
+}
+
+class SuccessfulDeleteMessage extends Message {
+	public function getText() {
+		return "User/group successfully deleted";
 	}
-});
 
-// Chainload Composer's autoloader
-require(__DIR__ . "/../../vendor/autoload.php");
-
-?>
+	public function getType() {
+		return self::success;
+	}
+}
