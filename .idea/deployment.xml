@@ -7,6 +7,10 @@
           <mappings>
             <mapping deploy="/home/lars/radiusadmin" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath path="/home/lars/radiusadmin/tmp" />
+            <excludedPath path="/home/lars/radiusadmin/vendor" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>
