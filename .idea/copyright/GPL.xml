@@ -1,0 +1,7 @@
+<component name="CopyrightManager">
+  <copyright>
+    <option name="allowReplaceKeyword" value="This file is part of" />
+    <option name="myName" value="GPL" />
+    <option name="notice" value="&#9;Filename:   &amp;#36;file.fileName&#10;&#9;Date:       &amp;#36;file.lastModified.format(&quot;yyyy-MM-dd&quot;)&#10;&#9;Author:     Lars Veldscholte&#10;&#9;            lars@veldscholte.eu&#10;&#9;            http://lars.veldscholte.eu&#10;&#10;&#9;Copyright &amp;#36;file.lastModified.year Lars Veldscholte&#10;&#10;&#9;This file is part of &amp;#36;project.name.&#10;&#10;&#9;&amp;#36;project.name is free software: you can redistribute it and/or modify&#10;&#9;it under the terms of the GNU General Public License as published by&#10;&#9;the Free Software Foundation, either version 3 of the License, or&#10;&#9;(at your option) any later version.&#10;&#10;&#9;&amp;#36;project.name is distributed in the hope that it will be useful,&#10;&#9;but WITHOUT ANY WARRANTY; without even the implied warranty of&#10;&#9;MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the&#10;&#9;GNU General Public License for more details.&#10;&#10;&#9;You should have received a copy of the GNU General Public License&#10;&#9;along with RadiusAdmin. If not, see &lt;http://www.gnu.org/licenses/&gt;." />
+  </copyright>
+</component>
