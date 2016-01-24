@@ -1,7 +1,7 @@
 <?php
 /**
- 	Filename:   autoloader.php
- 	Date:       2016-01-20
+ 	Filename:   exceptions.php
+ 	Date:       2016-01-24
  	Author:     Lars Veldscholte
  	            lars@veldscholte.eu
  	            http://lars.veldscholte.eu
@@ -24,27 +24,6 @@
  	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Normal classes
-spl_autoload_register(function($className) {
-	$file = __DIR__ . "/../classes/$className.php";
-	file_exists($file) and require($file);
-});
-
-// All messages are in one file
-spl_autoload_register(function($className) {
-	if(strpos($className, "Message") != false) {
-		require(__DIR__ . "/../classes/messages.php");
-	}
-});
-
-// All exceptions are in one file
-spl_autoload_register(function($className) {
-	if(strpos($className, "Exception") != false) {
-		require(__DIR__ . "/../classes/exceptions.php");
-	}
-});
-
-// Chainload Composer's autoloader
-require(__DIR__ . "/../../vendor/autoload.php");
+class NotApplicableException extends Exception {}
 
 ?>

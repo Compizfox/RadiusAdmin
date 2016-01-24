@@ -1,12 +1,12 @@
 <?php
 /**
- 	Filename:   autoloader.php
- 	Date:       2016-01-20
+ 	Filename:   MessageController.php
+ 	Date:       2015-10-28
  	Author:     Lars Veldscholte
  	            lars@veldscholte.eu
  	            http://lars.veldscholte.eu
 
- 	Copyright 2016 Lars Veldscholte
+ 	Copyright 2015 Lars Veldscholte
 
  	This file is part of RadiusAdmin.
 
@@ -24,27 +24,31 @@
  	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Normal classes
-spl_autoload_register(function($className) {
-	$file = __DIR__ . "/../classes/$className.php";
-	file_exists($file) and require($file);
-});
+class MessageController {
+	private $session;
 
-// All messages are in one file
-spl_autoload_register(function($className) {
-	if(strpos($className, "Message") != false) {
-		require(__DIR__ . "/../classes/messages.php");
+	function __construct(Session $session) {
+		$this->session = $session;
 	}
-});
 
-// All exceptions are in one file
-spl_autoload_register(function($className) {
-	if(strpos($className, "Exception") != false) {
-		require(__DIR__ . "/../classes/exceptions.php");
+	public function set(Message $message) {
+		$this->session->message = $message;
 	}
-});
 
-// Chainload Composer's autoloader
-require(__DIR__ . "/../../vendor/autoload.php");
+	public function getStatus() {
+		return isset($this->session->message);
+	}
+
+	public function getAndClear() {
+		try {
+			$message = $this->session->message;
+		} catch(Exception $e) {
+			throw new NotApplicableException;
+		}
+
+		unset($this->session->message);
+		return $message;
+	}
+}
 
 ?>

@@ -1,12 +1,12 @@
 <?php
 /**
- 	Filename:   autoloader.php
- 	Date:       2016-01-20
+ 	Filename:   Session.php
+ 	Date:       2015-10-28
  	Author:     Lars Veldscholte
  	            lars@veldscholte.eu
  	            http://lars.veldscholte.eu
 
- 	Copyright 2016 Lars Veldscholte
+ 	Copyright 2015 Lars Veldscholte
 
  	This file is part of RadiusAdmin.
 
@@ -24,27 +24,36 @@
  	along with RadiusAdmin. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Normal classes
-spl_autoload_register(function($className) {
-	$file = __DIR__ . "/../classes/$className.php";
-	file_exists($file) and require($file);
-});
-
-// All messages are in one file
-spl_autoload_register(function($className) {
-	if(strpos($className, "Message") != false) {
-		require(__DIR__ . "/../classes/messages.php");
+class Session {
+	function __construct() {
+		session_start();
 	}
-});
 
-// All exceptions are in one file
-spl_autoload_register(function($className) {
-	if(strpos($className, "Exception") != false) {
-		require(__DIR__ . "/../classes/exceptions.php");
+	function __set($name, $value) {
+		$_SESSION[$name] = $value;
 	}
-});
 
-// Chainload Composer's autoloader
-require(__DIR__ . "/../../vendor/autoload.php");
+	function __get($name) {
+		if(!isset($_SESSION[$name])) {
+			throw new Exception("Session variable '$name' is undefined");
+		}
+
+		return $_SESSION[$name];
+	}
+
+	function __isset($name) {
+		return isset($_SESSION[$name]);
+	}
+
+	function __unset($name) {
+		unset($_SESSION[$name]);
+	}
+
+	public function reset() {
+		session_destroy();
+		$_SESSION = [];
+		session_start();
+	}
+}
 
 ?>
