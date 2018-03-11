@@ -199,9 +199,10 @@ INSERT INTO `menu` (`id`, `parent_id`, `page`, `options`, `title`, `glyphicon`, 
 (6, 0, 'log', '', 'Log', '', 0),
 (7, 2, 'users_new', '', 'New user', 'glyphicon glyphicon-plus', 0),
 (8, 2, 'users_edit', '', 'Edit user', '', 1),
-(9, 3, 'groups_new', '', 'New Group', 'glyphicon glyphicon-plus', 0),
-
-(10, 3, 'groups_edit', '', 'Edit group', '', 1);
+(9, 2, 'users_delete', '', 'Delete user', '', 1),
+(10, 3, 'groups_new', '', 'New Group', 'glyphicon glyphicon-plus', 0),
+(11, 3, 'groups_edit', '', 'Edit group', '', 1),
+(12, 3, 'groups_delete', '', 'Delete group', '', 1);
 
 CREATE TABLE IF NOT EXISTS `serialized` (
   `name` varchar(25) NOT NULL,
