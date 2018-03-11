@@ -57,11 +57,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		die("No user specified.");
 	}
 
-	// Get user
 	$usermapper = new UserMapper($fr_db);
-	$user = $usermapper->getByName($_GET['name']);
-
-	if(empty($user)) {
+	// Get user
+	try {
+		$user = $usermapper->getByName($_GET['name']);
+	} catch (Exception $e) {
 		die("Non-existent user specified.");
 	}
 
