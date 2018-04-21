@@ -50,7 +50,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 	$groupmapper->save($group);
 
 	// PRG-redirect
-	header("Location: index.php?page=groups_edit&user={$_POST['name']}");
+	header("Location: index.php?page=groups_edit&name={$_POST['name']}");
 	exit();
 } else {
 	if(empty($_GET['name'])) {
