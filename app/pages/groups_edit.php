@@ -57,11 +57,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 		die("No group specified.");
 	}
 
-	// Get user
 	$groupmapper = new GroupMapper($fr_db);
-	$group = $groupmapper->getByName($_GET['name']);
-
-	if(empty($group)) {
+	// Get group
+	try {
+		$group = $groupmapper->getByName($_GET['name']);
+	} catch (Exception $e) {
 		die("Non-existent group specified.");
 	}
 

@@ -58,6 +58,8 @@ abstract class RadEntityMapper {
 			$radentity->replyattrs = $this->retrieveAttrs($rtn, $name);
 
 			return $radentity;
+		} else {
+			throw new Exception;
 		}
 	}
 
